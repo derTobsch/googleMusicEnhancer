@@ -1,11 +1,11 @@
 // ==UserScript==
-// @name 			GoogleMusicEnhancer (gme)
+// @name            GoogleMusicEnhancer (gme)
 // @version         0.1.0
-// @namespace 		http://www.tobsch.org/
+// @namespace       http://www.tobsch.org/
 // @author			Tobias Schneider
 // @homepage		http://www.tobsch.org
 // @licence			http://creativecommons.org/licenses/by-nc-sa/3.0/de/
-// @description 	Improvements and better usability for google music
+// @description     Improvements and better usability for google music
 //
 // @include			http://music.google.com/music/listen*
 // @include			https://music.google.com/music/listen*
@@ -14,15 +14,14 @@
 //
 // @require         http://code.jquery.com/jquery-2.1.0.min.js
 // @require         https://jquery-json.googlecode.com/files/jquery.json-2.4.min.js
-// @require         classes/Persist.js
-// @require         classes/Update.js
-// @require         classes/Helper.js
-// @require         classes/Build.js
-// @require         classes/Lyric.js
-// @require         classes/LyricStrategies.js
 //
-// @resource		css                     style/style.css
-//
+// grant            GM_addStyle
+// grant            GM_xmlhttpRequest
+// grant            GM_setValue
+// grant            GM_getValue
+// grant            GM_deleteValue
+// grant            GM_listValues
+// grant            GM_info
 // ==/UserScript==
 
 /***************************************************************************************************************************************************************************************************************************
@@ -49,9 +48,10 @@
  * License: Creative Commons Version 3.0 - http://creativecommons.org/licenses/by-nc-sa/3.0/de/
  **************************************************************************************************************************************************************************************************************************/
 
-GM_addStyle(GM_getResourceText("css"));
+GM_addStyle("<!-- @import style.css -->");
 
 $(function () {
+    "use strict";
 
     $('#main')
         .append(
@@ -68,32 +68,36 @@ $(function () {
                     Build.div({class: 'lyrics-body', id: 'lyrics-body', text: 'I can not hear a sound. Play something loud!' })
                 )
         ).on('click', 'div.hover-button[data-id="play"]', function () {
-            window.setTimeout(collectAndSearch,1000);
+            window.setTimeout(collectAndSearch, 500);
         });
 
-    $('div.player-middle').on('click', 'div#lyrics-panel, button[data-id="rewind"], button[data-id="forward"]', function () {
-        window.setTimeout(collectAndSearch,1000);
+    $('div#lyrics-panel').on('click', function () {
+        window.setTimeout(collectAndSearch, 500);
+    });
+    $('div.player-middle').on('click', 'button[data-id="rewind"], button[data-id="forward"]',function () {
+        window.setTimeout(collectAndSearch, 500);
     }).on('click', 'button[data-id="play-pause"]:not(".playing")', function () {
-        window.setTimeout(collectAndSearch,1000);
+        window.setTimeout(collectAndSearch, 500);
     });
 
+    /*   var text = $('#playerSongTitle').text();
+     setInterval(function () {
+     if ($('#playerSongTitle').text() != text) {
+     collectAndSearch();
+     text = $('#playerSongTitle').html()
+     }
+     }, 20000); // 20 secs*/
 
-/*    var text = $('#playerSongTitle').text();
-    setInterval(function () {
-        if ($('#playerSongTitle').text() != text) {
-            collectAndSearch();
-            text = $('#playerSongTitle').html()
-        }
-    }, 20000); // 20 secs*/
+    function collectAndSearch() {
+        if ($('#lyrics-panel').hasClass("clicked")) {
+            var title = $('#playerSongTitle').text();
+            var artist = $('#player-artist').text();
 
-
-    function collectAndSearch(){
-        var title = $('#playerSongTitle').text();
-        var artist = $('#player-artist').text();
-        var album = $('#player-album').text();
-
-        if(!!title && !!artist){
-            Lyric.search({artist: artist, title: title}, LyricsWiki);
+            if (!!title && !!artist) {
+                Lyric.search({artist: artist, title: title}, LyricsWiki);
+            }
+        } else {
+            console.log("Lyrics panel closed. Lyric will be get later.");
         }
     }
 

@@ -1,4 +1,5 @@
 var Update = (function () {
+    "use strict";
 
     var version = GM_info.script.version;
     var updateString = "last-update";
@@ -24,7 +25,7 @@ var Update = (function () {
                     this.draw({'newVersion': newVersion});
                 }
                 else {
-                    GM_log('No new version of the ' + name + ' available. Yours:' + newVersion + ' Server:' + version);
+                    console.log('No new version of the ' + name + ' available. Yours:' + newVersion + ' Server:' + version);
                 }
             }
         },
@@ -39,21 +40,18 @@ var Update = (function () {
 
             var updateDiv = jQuery('<div></div>')
                 .css({
-                    'left': (jQuery(document).width() / 2) - 250
+                    left: (jQuery(document).width() / 2) - 250
                 })
                 .attr({
-                    'id': 'update-box',
-                    'class': 'update-box'
+                    id: 'update-box',
+                    class: 'update-box'
                 })
                 .append(jQuery('<div><h2>New version available</h2></div>').addClass("update-header"))
                 .append(jQuery('<div>' + newVersionText + '</div>')
                     .addClass("update-body")
                     .append(
                         jQuery('<a>' + name + " " + options.newVersion + '</a>')
-                            .attr({
-                                'href': linkToNewVersion,
-                                'title': name+' ' + version
-                            })
+                            .attr({href: linkToNewVersion,title: name + ' ' + version})
                     )
                 );
 
@@ -75,14 +73,6 @@ var Update = (function () {
 
             return undefined;
         }
-    }
+    };
 
 }());
-
-
-
-
-
-
-
-

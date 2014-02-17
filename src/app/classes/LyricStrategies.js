@@ -1,4 +1,5 @@
 var LyricsWiki = (function () {
+    "use strict";
 
     var name = 'LyricsWiki';
     var baseLyricsWikiUrl = 'http://lyrics.wikia.com/api.php?fmt=realjson';
@@ -39,14 +40,6 @@ var LyricsWiki = (function () {
                 });
             }
         }
-    }
+    };
 
 }());
-
-
-
-
-
-
-
-

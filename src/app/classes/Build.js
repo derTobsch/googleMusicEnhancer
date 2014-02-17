@@ -1,4 +1,5 @@
 var Build = (function () {
+    "use strict";
 
     return {
 

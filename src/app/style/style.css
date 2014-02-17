@@ -32,19 +32,19 @@
 .lyrics-header {
     font-size: 16px;
     position: relative;
-    height: 30px;
+    min-height: 30px;
     width: 100%;
     text-align: center;
+    border-bottom: 1px solid #D1D1D1;
 }
 
 .lyrics-body {
     color: #707070;
-    border-top: 1pt solid #D1D1D1;
     font-size: 13px;
     position: relative;
     height: 90%;
     width: 100%;
-    padding-top: 15px;
+    margin-top: 15px;
     padding-left: 5px;
     overflow-y: auto;
 }

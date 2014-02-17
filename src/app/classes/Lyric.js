@@ -1,7 +1,8 @@
 var Lyric = (function () {
+    "use strict";
 
     var baseGoogleUrl = 'http://www.google.com/';
-    var parameter = undefined;
+    var parameter;
 
     return {
 
@@ -64,18 +65,12 @@ var Lyric = (function () {
 
         },
         parameter: function(par){
-            if (typeof par !== 'undefined') parameter = par;
+            if (typeof par !== 'undefined') {
+                parameter = par;
+            }
             return parameter;
         }
 
-    }
+    };
 
 }());
-
-
-
-
-
-
-
-

@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name            GoogleMusicEnhancer (gme)
+// @name            GoogleMusicEnhancer (GME)
 // @version         0.1.0
 // @namespace       http://www.tobsch.org/
 // @author			Tobias Schneider
@@ -55,7 +55,7 @@ $(function () {
 
     $('#main')
         .append(
-            Build.div({class: 'lyrics-panel un-clicked', id: 'lyrics-panel'})
+            Build.div({class: 'lyrics-panel un-clicked', id: 'lyrics-panel', attr: {title: 'Hit to reload lyric'}})
                 .append(
                     Build.div({class: 'lyrics-clip', id: 'lyrics-clip', text: 'Lyric'}).on('click', function () {
                         $(this).parent('div.lyrics-panel').toggleClass("clicked un-clicked");
@@ -80,13 +80,14 @@ $(function () {
         window.setTimeout(collectAndSearch, 500);
     });
 
-    /*   var text = $('#playerSongTitle').text();
-     setInterval(function () {
-     if ($('#playerSongTitle').text() != text) {
-     collectAndSearch();
-     text = $('#playerSongTitle').html()
-     }
-     }, 20000); // 20 secs*/
+/*    var title = $('#playerSongTitle').text();
+    setInterval(function () {
+        var $songTitle = $('#playerSongTitle');
+        if ($songTitle.text() !== title) {
+            collectAndSearch();
+            title = $songTitle.html();
+        }
+    }, 20000);*/
 
     function collectAndSearch() {
         if ($('#lyrics-panel').hasClass("clicked")) {

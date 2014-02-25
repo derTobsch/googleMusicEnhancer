@@ -11,7 +11,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: ['src/app/*.user.js', 'src/app/classes/*.js'],
-                dest: '<%= config.dist %><%= pkg.name %>.<%= pkg.version %>.user.js'
+                dest: '<%= config.dist %><%= pkg.name %>.user.js'
             }
         },
         'string-replace': {

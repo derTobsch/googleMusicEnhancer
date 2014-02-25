@@ -15,6 +15,9 @@ var Build = (function () {
             if (!!options.class) {
                 div.addClass(options.class);
             }
+            if (!!options.attr) {
+                div.attr(options.attr);
+            }
             return div;
         },
 

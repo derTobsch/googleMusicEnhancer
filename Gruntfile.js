@@ -48,7 +48,7 @@ module.exports = function (grunt) {
             }
         },
         jshint: {
-          files: ['gruntfile.js', 'src/**/*.js', 'tests/**/*.js'],
+          files: ['src/app/**/*.js', 'tests/app/**/*.js'],
           options: {
               "maxerr" : 50, // {int} Maximum error before stopping
 
@@ -135,17 +135,23 @@ module.exports = function (grunt) {
               module: true
             }
           }
+        }, jasmine: {
+           src: 'src/app/**/*.js',
+           options: {
+               specs: 'tests/app/**/*.js',
+               vendor: 'tests/resources/**/*.js'
+           }
         }
-
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-string-replace');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
 
-    grunt.registerTask('default', ['concat', 'string-replace', 'uglify']);
+    grunt.registerTask('test', ['jshint', 'jasmine']);
 
-    grunt.registerTask('test', ['jshint']);
+    grunt.registerTask('default', ['jshint', 'concat', 'string-replace', 'uglify']);
 
 };

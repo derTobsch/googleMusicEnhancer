@@ -5,28 +5,29 @@ var Update = (function () {
     var updateString = "last-update";
 
     var name = 'GoogleMusicEnhancer (GME)';
-    var linkToNewVersion = 'http://files.cplusplus.tobsch.org/download/comunio_c.user.js';
-    var newVersionCheckUrl = 'http://tobsch.org/?site=gme';
+    var linkToNewVersion = 'http://www.tobsch.org/downloads/GoogleMusicEnhancer.user.js';
+    var newVersionCheckUrl = 'http://tobsch.org/?site=GoogleMusicEnhancer';
 
     return {
-        check: function () {
+        check: function (force) {
 
-            var lastUpdate = Persist.findBy(updateString);
+            var lastUpdateTime = Persist.findBy(updateString);
 
-            if (!!lastUpdate ||
-                parseInt(lastUpdate) + parseInt(24 * 60 * 60 * 1000) < parseInt(String(new Date().getTime()))) {
+            if (force === true || lastUpdateTime === undefined || parseInt(lastUpdateTime) + parseInt(24 * 60 * 60 * 1000) < parseInt(String(new Date().getTime()))) {
 
                 var newVersion = this.getNewVersion();
 
-                var actVersionStripped = version.replace(/\./g, '');
-                var newVersionStripped = newVersion.replace(/\./g, '');
+                var actVersionStripped = parseInt(version.replace(/\./g, ''));
+                var newVersionStripped = parseInt(newVersion.replace(/\./g, ''));
 
                 if (!!newVersionStripped && newVersionStripped > actVersionStripped) {
                     this.draw({'newVersion': newVersion});
                 }
                 else {
-                    console.log('No new version of the ' + name + ' available. Yours:' + newVersion + ' Server:' + version);
+                    console.log('No new version of the ' + name + ' available ' + newVersion + ' <= ' + version);
                 }
+
+                Persist.persist(updateString, String(new Date().getTime()));
             }
         },
 
@@ -55,7 +56,6 @@ var Update = (function () {
                     )
                 );
 
-            Persist.persist(updateString, String(new Date().getTime()));
             $('body').append(updateDiv);
         },
 

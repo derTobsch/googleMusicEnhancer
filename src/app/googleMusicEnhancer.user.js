@@ -53,6 +53,12 @@ GM_addStyle("<!-- @import style.css -->");
 $(function () {
     "use strict";
 
+    Update.check();
+
+    $('.music-banner-icon').on('click', function () {
+        Update.check(true);
+    });
+
     $('#main')
         .append(
             Build.div({attr:{class: 'lyrics-panel un-clicked', id: 'lyrics-panel', title: 'Hit to reload lyric'}})

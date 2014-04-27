@@ -70,3 +70,27 @@
 .space-top {
     margin-top: 10px;
 }
+
+.update-box {
+    z-index: 102;
+    border: 1px solid;
+    border-radius: 5px;
+    font-size: 1.1em;
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top: 15%;
+    background-color: white;
+}
+
+.update-body {
+    text-align: center;
+}
+
+.update-header {
+    text-align: center;
+}
+
+.update-header h2{
+    margin: 20px auto;
+}

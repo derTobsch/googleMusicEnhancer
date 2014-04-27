@@ -8,9 +8,9 @@
 // @description     Improvements and better usability for google music
 //
 // @include         http://music.google.com/music/listen*
-// @include	        https://music.google.com/music/listen*
-// @include	        http://play.google.com/music/listen*
-// @include	        https://play.google.com/music/listen*
+// @include         https://music.google.com/music/listen*
+// @include         http://play.google.com/music/listen*
+// @include         https://play.google.com/music/listen*
 //
 // @require         http://code.jquery.com/jquery-2.1.0.min.js
 // @require         https://jquery-json.googlecode.com/files/jquery.json-2.4.min.js

@@ -4,7 +4,7 @@
 // @namespace       http://www.tobsch.org/
 // @author			Tobias Schneider
 // @homepage		http://www.tobsch.org
-// @licence			http://creativecommons.org/licenses/by-nc-sa/3.0/de/
+// @licence			http://www.gnu.org/licenses/gpl-2.0.html
 // @description     Improvements and better usability for google music
 //
 // @include			http://music.google.com/music/listen*
@@ -24,29 +24,6 @@
 // grant            GM_info
 // ==/UserScript==
 
-/***************************************************************************************************************************************************************************************************************************
- *
- * Copyright notice
- *
- * (c) 2011-Present Tobias Schneider
- *
- * http://tobsch.org
- *
- * All rights reserved.
- *
- *
- * THIS SOFTWARE IS PROVIDED BY TOBIAS SCHNEIDER ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL TOBIAS SCHNEIDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
- * GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This script is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * This copyright notice MUST APPEAR in all copies of this script
- *
- *
- * License: Creative Commons Version 3.0 - http://creativecommons.org/licenses/by-nc-sa/3.0/de/
- **************************************************************************************************************************************************************************************************************************/
 
 GM_addStyle("<!-- @import style.css -->");
 

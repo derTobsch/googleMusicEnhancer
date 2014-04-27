@@ -6,14 +6,14 @@ var Persist = (function () {
     return {
         persist: function (key, value) {
             key = prefix + '' + key;
-            GM_setValue(key, jQuery.toJSON(value));
+            GM_setValue(key, $.toJSON(value));
         },
 
         findBy: function (key) {
             key = prefix + '' + key;
             var storedObject = GM_getValue(key);
             if (!!storedObject) {
-                return jQuery.evalJSON(storedObject);
+                return $.evalJSON(storedObject);
             }
             return undefined;
         },

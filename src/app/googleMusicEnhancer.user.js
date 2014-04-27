@@ -55,17 +55,17 @@ $(function () {
 
     $('#main')
         .append(
-            Build.div({class: 'lyrics-panel un-clicked', id: 'lyrics-panel', attr: {title: 'Hit to reload lyric'}})
+            Build.div({attr:{class: 'lyrics-panel un-clicked', id: 'lyrics-panel', title: 'Hit to reload lyric'}})
                 .append(
-                    Build.div({class: 'lyrics-clip', id: 'lyrics-clip', text: 'Lyric'}).on('click', function () {
+                    Build.div({attr: {class: 'lyrics-clip', id: 'lyrics-clip'}, text: 'Lyric'}).on('click', function () {
                         $(this).parent('div.lyrics-panel').toggleClass("clicked un-clicked");
                     })
                 )
                 .append(
-                    Build.div({class: 'lyrics-header', id: 'lyrics-header', text: 'Lyrics Panel'})
+                    Build.div({attr:{class: 'lyrics-header', id: 'lyrics-header'}, text: 'Lyrics Panel'})
                 )
                 .append(
-                    Build.div({class: 'lyrics-body', id: 'lyrics-body', text: 'I can not hear a sound. Play something loud!' })
+                    Build.div({attr:{class: 'lyrics-body', id: 'lyrics-body'}, text: 'I can not hear a sound. Play something loud!' })
                 )
         ).on('click', 'div.hover-button[data-id="play"]', function () {
             window.setTimeout(collectAndSearch, 500);

@@ -38,26 +38,25 @@ var Update = (function () {
 
             Build.blackOut({classesToHide: '.update-box'});
 
-            var updateDiv = jQuery('<div></div>')
+            var updateDiv = $('<div></div>')
                 .css({
-                    left: (jQuery(document).width() / 2) - 250
+                    left: ($(document).width() / 2) - 250
                 })
                 .attr({
                     id: 'update-box',
                     class: 'update-box'
                 })
-                .append(jQuery('<div><h2>New version available</h2></div>').addClass("update-header"))
-                .append(jQuery('<div>' + newVersionText + '</div>')
+                .append($('<div><h2>New version available</h2></div>').addClass("update-header"))
+                .append($('<div>' + newVersionText + '</div>')
                     .addClass("update-body")
                     .append(
-                        jQuery('<a>' + name + " " + options.newVersion + '</a>')
-                            .attr({href: linkToNewVersion,title: name + ' ' + version})
+                        $('<a>' + name + " " + options.newVersion + '</a>')
+                            .attr({href: linkToNewVersion, title: name + ' ' + version})
                     )
                 );
 
-            jQuery('body').append(updateDiv);
-
             Persist.persist(updateString, String(new Date().getTime()));
+            $('body').append(updateDiv);
         },
 
         getNewVersion: function () {

@@ -4,47 +4,19 @@ var Build = (function () {
     return {
 
         div: function (options) {
-            var div = $('<div></div>');
-
-            if (!!options.text) {
-                div.html(options.text);
-            }
-            if (!!options.id) {
-                div.attr({id: options.id});
-            }
-            if (!!options.class) {
-                div.addClass(options.class);
-            }
-            if (!!options.attr) {
-                div.attr(options.attr);
-            }
-            return div;
+            return merge($('<div></div>'), options);
         },
 
         link: function (options) {
-            var link = $('<a></a>');
-
-            if (!!options.text) {
-                link.html(options.text);
-            }
-            if (!!options.id) {
-                link.attr({id: options.id});
-            }
-            if (!!options.class) {
-                link.addClass(options.class);
-            }
-            if (!!options.href) {
-                link.attr({href: options.href});
-            }
-            return link;
+            return merge($('<a></a>'), options);
         },
 
         blackOut: function (options) {
 
-            var blackCurtain = jQuery('<div></div>')
+            var blackCurtain = $('<div></div>')
                 .css({
-                    'width': jQuery(document).width(),
-                    'height': jQuery(document).height(),
+                    'width': $(document).width(),
+                    'height': $(document).height(),
                     'top': '0px',
                     'left': '0px',
                     'position': 'absolute',
@@ -53,12 +25,25 @@ var Build = (function () {
                 })
                 .fadeTo('slow', 0.7)
                 .click(function () {
-                    jQuery(this).hide();
-                    jQuery(options.classesToHide).hide();
+                    $(this).hide();
+                    $(options.classesToHide).hide();
                 });
 
-            jQuery('body').prepend(blackCurtain);
+            $('body').prepend(blackCurtain);
         }
     };
+
+    function merge($element, options) {
+        if (options.text) {
+            $element.html(options.text);
+        }
+        if (options.attr) {
+            $element.attr(options.attr);
+        }
+        if (options.css) {
+            $element.attr(options.css);
+        }
+        return $element.clone();
+    }
 
 }());

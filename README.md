@@ -23,7 +23,6 @@ Clone this repo, install `grunt`:
 git clone git://github.com/derTobsch/googleMusicEnhancer.git
 cd googleMusicEnhancer
 npm install
-npm install -g grunt-cli
 ```
 
 Run `grunt` to `jshint`, `concat` and `string-replace` release.
@@ -32,6 +31,7 @@ Run `grunt` to `jshint`, `concat` and `string-replace` release.
 grunt
 ```
 
+After that the userscript was build in `dist/` with the name `GoogleMusicEnhancer.user.js`
 
 
 How to run the tests:

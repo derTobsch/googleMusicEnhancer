@@ -144,7 +144,6 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-string-replace');
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -152,6 +151,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', ['jshint', 'jasmine']);
 
-    grunt.registerTask('default', ['jshint', 'concat', 'string-replace', 'uglify']);
+    grunt.registerTask('default', ['jshint', 'concat', 'string-replace']);
 
 };

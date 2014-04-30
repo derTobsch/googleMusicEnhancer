@@ -11,7 +11,6 @@ var LyricsWiki = (function () {
                 method: "GET",
                 url: encodeURI(baseLyricsWikiUrl + '&artist=' + toTitleCase(artist) + '&song=' + toTitleCase(title)),
                 onload: function (response) {
-                    console.log(response);
                     var songObject = $.parseJSON(response.responseText);
 
                     if (!!songObject.page_id) {

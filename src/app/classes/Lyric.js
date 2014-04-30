@@ -14,7 +14,7 @@ var Lyric = (function () {
 
     function findBy(strategy, parameter) {
 
-        $('#lyrics-header').html(parameter.artist + ' - ' + parameter.title);
+        $('#lyrics-header').html(parameter.artist + ' - ' + parameter.title).attr('hash',Util.hashCode(parameter.artist,parameter.title));
 
         var persistLyric = Persist.findBy('lyric:' + parameter.artist + '-' + parameter.title);
         if (persistLyric) {

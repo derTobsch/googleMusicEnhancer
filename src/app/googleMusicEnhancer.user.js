@@ -56,7 +56,7 @@ $(function () {
         var title = $('#playerSongTitle').text();
         var artist = $('#player-artist').text();
 
-        if (title && artist && $('#lyrics-header').text().indexOf(artist + ' - ' + title) === -1) {
+        if (title && artist && parseInt($('#lyrics-header').attr('hash')) !== Util.hashCode(artist,title)) {
             Lyric.search({artist: artist, title: title}, LyricsWiki);
         }
     });

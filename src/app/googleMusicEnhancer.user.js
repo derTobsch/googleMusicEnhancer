@@ -24,17 +24,12 @@
 // grant            GM_info
 // ==/UserScript==
 
-
 GM_addStyle("<!-- @import style.css -->");
 
 $(function () {
     "use strict";
 
     Update.check();
-
-    $('.music-banner-icon').on('click', function () {
-        Update.check(true);
-    });
 
     $('#main')
         .append(
@@ -50,40 +45,20 @@ $(function () {
                 .append(
                     Build.div({attr:{class: 'lyrics-body', id: 'lyrics-body'}, text: 'I can not hear a sound. Play something loud!' })
                 )
-        ).on('click', 'div.hover-button[data-id="play"]', function () {
-            window.setTimeout(collectAndSearch, 500);
-        });
+        );
 
-    $('div#lyrics-panel').on('click', function () {
-        window.setTimeout(collectAndSearch, 500);
-    });
-    $('div.player-middle').on('click', 'button[data-id="rewind"], button[data-id="forward"]',function () {
-        window.setTimeout(collectAndSearch, 500);
-    }).on('click', 'button[data-id="play-pause"]:not(".playing")', function () {
-        window.setTimeout(collectAndSearch, 500);
+    // listeners
+    $('.music-banner-icon').on('click', function () {
+        Update.check(true);
     });
 
-/*    var title = $('#playerSongTitle').text();
-    setInterval(function () {
-        var $songTitle = $('#playerSongTitle');
-        if ($songTitle.text() !== title) {
-            collectAndSearch();
-            title = $songTitle.html();
+    $('#playerSongInfo').on('DOMSubtreeModified', function () {
+        var title = $('#playerSongTitle').text();
+        var artist = $('#player-artist').text();
+
+        if (title && artist && $('#lyrics-header').text().indexOf(artist + ' - ' + title) === -1) {
+            Lyric.search({artist: artist, title: title}, LyricsWiki);
         }
-    }, 20000);*/
-
-    function collectAndSearch() {
-        if ($('#lyrics-panel').hasClass("clicked")) {
-            var title = $('#playerSongTitle').text();
-            var artist = $('#player-artist').text();
-
-            if (!!title && !!artist) {
-                Lyric.search({artist: artist, title: title}, LyricsWiki);
-            }
-        } else {
-            console.log("Lyrics panel closed. Lyric will be get later.");
-        }
-    }
-
+    });
 
 }); // Ready Function

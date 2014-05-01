@@ -7,9 +7,7 @@ This user script can be used to receive lyrics and show them directly at google 
 It will receive the new lyrics when a new song is played.
 
 Download latest release at
-```sh
 http://tobsch.org/?site=GoogleMusicEnhancer
-```
 
 ![Google Music lyrics](http://tobsch.org/img/GoogleMusicEnhancer/927cf659a1ef.png)
 

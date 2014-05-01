@@ -41,7 +41,8 @@ var Update = (function () {
 
             var updateDiv = $('<div></div>')
                 .css({
-                    left: ($(document).width() / 2) - 250
+                    left: ($(document).width() / 2) - 250,
+                    'z-index': '500'
                 })
                 .attr({
                     id: 'update-box',

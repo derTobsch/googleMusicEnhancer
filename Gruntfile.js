@@ -135,22 +135,18 @@ module.exports = function (grunt) {
               module: true
             }
           }
-        }, jasmine: {
-           src: 'src/app/**/*.js',
-           options: {
-               specs: 'tests/app/**/*.js',
-               vendor: 'tests/resources/**/*.js'
-           }
+        },
+        qunit: {
+            files: [ "tests/**/*.html" ]
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-string-replace');
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-contrib-qunit');
 
-    grunt.registerTask('test', ['jshint', 'jasmine']);
-
+    grunt.registerTask('test', ['jshint', 'qunit']);
     grunt.registerTask('default', ['jshint', 'concat', 'string-replace']);
 
 };

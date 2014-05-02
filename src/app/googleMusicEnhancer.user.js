@@ -58,7 +58,7 @@ $(function () {
 
         if (title && artist && parseInt($('#lyrics-header').attr('hash')) !== Util.hashCode(artist,title)) {
             try{
-                lyric.search({artist: artist, title: title}, LyricsWiki);
+                Lyric.search({artist: artist, title: title}, LyricsWiki);
             } catch(e){
                 console.log('GME: ' + e.message);
             }

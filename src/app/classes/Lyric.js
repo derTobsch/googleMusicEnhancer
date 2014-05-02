@@ -19,7 +19,7 @@ var Lyric = (function () {
             .attr('hash', Util.hashCode(parameter.artist,parameter.title));
 
         var persistLyric = Persist.findBy('lyric:' + parameter.artist + '-' + parameter.title);
-        if (persistLyric.lyric) {
+        if (persistLyric && persistLyric.lyric) {
             $('#lyrics-body').html(persistLyric.lyric);
         }
         else {

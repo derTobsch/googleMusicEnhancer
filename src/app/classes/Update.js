@@ -13,7 +13,8 @@ var Update = (function () {
 
             var lastUpdateTime = Persist.findBy(updateString);
 
-            if (force === true || lastUpdateTime === undefined || parseInt(lastUpdateTime) + parseInt(24 * 60 * 60 * 1000) < parseInt(String(new Date().getTime()))) {
+            if (force === true || lastUpdateTime === undefined ||
+                parseInt(lastUpdateTime) + parseInt(24 * 60 * 60 * 1000) < parseInt(String(new Date().getTime()))) {
 
                 var newVersion = this.getNewVersion();
 

@@ -22,7 +22,7 @@ var Build = (function () {
                         'left': '0',
                         'position': 'absolute',
                         'z-index': '499',
-                        'background-color': 'black'
+                        'background-color': 'rgb(0, 0, 0)'
                     },
                     attr : {
                         id : 'black-curtain'

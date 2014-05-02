@@ -29,7 +29,7 @@ GM_addStyle("<!-- @import style.css -->");
 $(function () {
     "use strict";
 
-    Update.check();
+    Update.check(false);
 
     $('#main')
         .append(
@@ -57,7 +57,11 @@ $(function () {
         var artist = $('#player-artist').text();
 
         if (title && artist && parseInt($('#lyrics-header').attr('hash')) !== Util.hashCode(artist,title)) {
-            Lyric.search({artist: artist, title: title}, LyricsWiki);
+            try{
+                lyric.search({artist: artist, title: title}, LyricsWiki);
+            } catch(e){
+                console.log('GME: ' + e.message);
+            }
         }
     });
 

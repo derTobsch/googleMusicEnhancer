@@ -3,11 +3,11 @@ $(function () {
 
     var sut = Persist;
 
-    test( "Persist persist test with undefined key", function() {
+    test( "Persist persist test with undefined key", 1, function() {
         equal( sut.persist(undefined, {lyric : "lyricBashinat0r"}), false, "Return has to be false." );
     });
 
-    test( "Persist persist test", function() {
+    test( "Persist persist test", 2, function() {
         var storedPair = sut.persist('lyricOne', {lyric : "lyricBashinat0r"});
 
         equal( storedPair.key, 'gme:lyricOne', "The prefix has to be added to the key." );
@@ -15,29 +15,26 @@ $(function () {
     });
 
 
-    test( "Persist findBy test with undefined key", function() {
+    test( "Persist findBy test with undefined key", 1, function() {
         equal( sut.findBy(undefined), undefined, "Return has to be undefined." );
     });
 
-    test( "Persist findby test", function() {
-
+    test( "Persist findby test", 2, function() {
         var storedPair = sut.findBy('lyricOne');
 
         equal( storedPair.key, 'gme:lyricOne', "The prefix has to be added to the key." );
         equal( storedPair.value, 'value', "The value has to be value (of Mock)." );
     });
 
-    test( "Persist findby test with incorrect json format", function() {
-
+    test( "Persist findby test with incorrect json format", 1, function() {
         equal(sut.findBy('incorrectJson'), undefined, "Value has to be undefined." );
     });
 
-
-    test( "Persist remove test with undefined key", function() {
+    test( "Persist remove test with undefined key", 1, function() {
         equal( sut.remove(undefined), undefined, "Return has to be undefined." );
     });
 
-    test( "Persist remove test", function() {
+    test( "Persist remove test", 1, function() {
         equal( sut.remove('lyricOne').key, 'gme:lyricOne', "The prefix has to be added to the key." );
     });
 

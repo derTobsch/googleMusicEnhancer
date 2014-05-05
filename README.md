@@ -1,4 +1,4 @@
-googleMusicEnhancer
+GoogleMusicEnhancer
 ===================
 
 Will enhance your google music experience.

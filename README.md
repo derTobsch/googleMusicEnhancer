@@ -22,7 +22,7 @@ cd googleMusicEnhancer
 npm install
 ```
 
-Run `grunt` to `jshint`, `concat` and `string-replace` release.
+Run `grunt` to `jshint`, `qunit`,  `concat` and `string-replace` release.
 
 ```sh
 grunt

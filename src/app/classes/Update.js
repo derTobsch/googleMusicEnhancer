@@ -9,6 +9,15 @@ var Update = (function () {
     var newVersionCheckUrl = 'http://tobsch.org/?site=GoogleMusicEnhancer';
 
     return {
+        init: function (selector) {
+            if(selector){
+                $(selector).on('click', function () {
+                    this.check(true);
+                });
+            }
+
+            return this;
+        },
         check: function (force) {
 
             var lastUpdateTime = Persist.findBy(updateString);
@@ -16,13 +25,13 @@ var Update = (function () {
             if (force === true || lastUpdateTime === undefined ||
                 parseInt(lastUpdateTime) + parseInt(24 * 60 * 60 * 1000) < parseInt(String(new Date().getTime()))) {
 
-                var newVersion = this.getNewVersion();
+                var newVersion = getNewVersion();
 
                 var actVersionStripped = parseInt(version.replace(/\./g, ''));
                 var newVersionStripped = parseInt(newVersion.replace(/\./g, ''));
 
-                if (!!newVersionStripped && newVersionStripped > actVersionStripped) {
-                    this.draw({'newVersion': newVersion});
+                if (newVersionStripped && newVersionStripped > actVersionStripped) {
+                    draw({'newVersion': newVersion});
                 }
                 else {
                     console.log('No new version of the ' + name + ' available ' + newVersion + ' <= ' + version);
@@ -30,50 +39,51 @@ var Update = (function () {
 
                 Persist.persist(updateString, String(new Date().getTime()));
             }
-        },
 
-        draw: function (options) {
-
-            var newVersionText = 'A new version of the ' + name + ' is available.<br><br>';
-            newVersionText += "Your version: " + version + "<br>";
-            newVersionText += "Brand new version: " + options.newVersion + "<br><br><br>";
-
-            Build.blackOut({classesToHide: '.update-box'});
-
-            var updateDiv = $('<div></div>')
-                .css({
-                    left: ($(document).width() / 2) - 250,
-                    'z-index': '500'
-                })
-                .attr({
-                    id: 'update-box',
-                    class: 'update-box'
-                })
-                .append($('<div><h2>New version available</h2></div>').addClass("update-header"))
-                .append($('<div>' + newVersionText + '</div>')
-                    .addClass("update-body")
-                    .append(
-                        $('<a>' + name + " " + options.newVersion + '</a>')
-                            .attr({href: linkToNewVersion, title: name + ' ' + version})
-                    )
-                );
-
-            $('body').append(updateDiv);
-        },
-
-        getNewVersion: function () {
-            var response = GM_xmlhttpRequest({
-                method: 'GET',
-                synchronous: 'true',
-                url: newVersionCheckUrl
-            });
-
-            if (response.status === 200) {
-                return $('#projectVersion', response.responseText).html();
-            }
-
-            return undefined;
+            return this;
         }
     };
+
+    function draw(options) {
+
+        var newVersionText = 'A new version of the ' + name + ' is available.<br><br>';
+        newVersionText += 'Your version: ' + version + '<br>';
+        newVersionText += 'Brand new version: ' + options.newVersion + '<br><br><br>';
+
+        Build.blackOut({classesToHide: '.update-box'});
+
+        var updateDiv = $('<div></div>')
+            .css({
+                left: ($(document).width() / 2) - 250,
+                'z-index': '500'
+            })
+            .attr({
+                id: 'update-box',
+                class: 'update-box'
+            })
+            .append($('<div><h2>New version available</h2></div>').addClass('update-header'))
+            .append($('<div>' + newVersionText + '</div>')
+                .addClass('update-body')
+                .append(
+                $('<a>' + name + ' ' + options.newVersion + '</a>')
+                    .attr({href: linkToNewVersion, title: name + ' ' + version})
+            )
+        );
+
+        $('body').append(updateDiv);
+    }
+
+    function getNewVersion() {
+        var response = GM_xmlhttpRequest({
+            method: 'GET',
+            synchronous: 'true',
+            url: newVersionCheckUrl
+        });
+
+        if (response.status === 200) {
+            return $('#projectVersion', response.responseText).html();
+        }
+        return undefined;
+    }
 
 }());

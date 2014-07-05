@@ -12,7 +12,7 @@ http://tobsch.org/?site=GoogleMusicEnhancer
 ![Google Music lyrics](http://tobsch.org/img/GoogleMusicEnhancer/927cf659a1ef.png)
 
 
-How to 'buid' this project:
+How to 'build' this project:
 ====================================================
 Clone this repo, install `grunt`:
 

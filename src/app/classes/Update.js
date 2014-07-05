@@ -1,8 +1,8 @@
 var Update = (function () {
-    "use strict";
+    'use strict';
 
     var version = GM_info.script.version;
-    var updateString = "last-update";
+    var updateString = 'last-update';
 
     var name = 'GoogleMusicEnhancer (GME)';
     var linkToNewVersion = 'http://www.tobsch.org/downloads/GoogleMusicEnhancer.user.js';

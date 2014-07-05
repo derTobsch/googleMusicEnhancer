@@ -24,10 +24,10 @@
 // grant            GM_info
 // ==/UserScript==
 
-GM_addStyle("<!-- @import style.css -->");
+GM_addStyle('<!-- @import style.css -->');
 
 $(function () {
-    "use strict";
+    'use strict';
 
     Update.check(false);
 

@@ -1,24 +1,24 @@
 $(function () {
-    "use strict";
+    'use strict';
 
     var sut = Lyric;
 
-    test("Lyric search throws exception on wrong parameters", 3, function () {
+    test('Lyric search throws exception on wrong parameters', 3, function () {
         throws(function () {
             sut.search(undefined, LyricStrategyMockSuccess);
-        }, "Wrong parameters or strategy object", "Throws a exception on wrong parameter set.");
+        }, 'Wrong parameters or strategy object', 'Throws a exception on wrong parameter set.');
 
         throws(function () {
             sut.search({}, undefined);
-        }, "Wrong parameters or strategy object", "Throws a exception on wrong parameter set.");
+        }, 'Wrong parameters or strategy object', 'Throws a exception on wrong parameter set.');
 
         throws(function () {
             sut.search(undefined, undefined);
-        }, "Wrong parameters or strategy object", "Throws a exception on wrong parameter set.");
+        }, 'Wrong parameters or strategy object', 'Throws a exception on wrong parameter set.');
     });
 
 
-    test("Lyric search from local storage ", 3, function () {
+    test('Lyric search from local storage ', 3, function () {
 
         var artist = 'artist';
         var title= 'title';
@@ -33,7 +33,7 @@ $(function () {
         strictEqual(body.html(), 'lyric', 'Body contains lyric');
     });
 
-    test("Lyric search via the web", 4, function () {
+    test('Lyric search via the web', 4, function () {
 
         var artist = 'noLyric';
         var title= 'title';
@@ -49,7 +49,7 @@ $(function () {
         strictEqual(Persist.findBy('lyric:' + artist + '-' + title).key, 'gme:lyric:noLyric-title', 'New lyric was saved');
     });
 
-    test("Lyric search via the web", 3, function () {
+    test('Lyric search via the web', 3, function () {
 
         var artist = 'noLyric';
         var title= 'title';
@@ -67,7 +67,7 @@ $(function () {
 });
 
 var LyricStrategyMockSuccess = (function () {
-    "use strict";
+    'use strict';
     return {
         execute: function (artist, title, success, error) {
             success('lyric');
@@ -76,7 +76,7 @@ var LyricStrategyMockSuccess = (function () {
     };
 }());
 var LyricStrategyMockError = (function () {
-    "use strict";
+    'use strict';
     return {
         execute: function (artist, title, success, error) {
             error('lyric', 'url');

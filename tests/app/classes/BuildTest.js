@@ -1,15 +1,15 @@
 $(function () {
-    "use strict";
+    'use strict';
 
     var sut = Build;
 
-    test("Build div test with undefined options", 2, function () {
+    test('Build div test with undefined options', 2, function () {
 
         strictEqual(String(sut.div(undefined)[0]), String($('<div></div>')[0]), 'Should be a <div> element');
         strictEqual(String(sut.link(undefined)[0]), String($('<a></a>')[0]), 'Should be a <a> element');
     });
 
-    test("Build div test", 7, function () {
+    test('Build div test', 7, function () {
 
         var $div = sut.div({ attr : {class: 'firstClass secondClass', id: 'testId', title: 'testTitle'}, text : 'testText', css : {'background-color': 'rgb(0, 0, 0)'}});
 
@@ -22,7 +22,7 @@ $(function () {
         strictEqual($div.css('background-color'), 'rgb(0, 0, 0)', 'Property is not correct.');
     });
 
-    test("Build link test", 7, function () {
+    test('Build link test', 7, function () {
 
         var $link = sut.link({ attr : {class: 'firstClass secondClass', id: 'testId', title: 'testTitle'}, text : 'testText', css : {'background-color': 'rgb(0, 0, 0)'}});
 
@@ -35,7 +35,7 @@ $(function () {
         strictEqual($link.css('background-color'), 'rgb(0, 0, 0)', 'Property is not correct.');
     });
 
-    test("Build black curtain test", 9, function () {
+    test('Build black curtain test', 9, function () {
 
         sut.blackOut({classesToHide: '.hideMe'});
 

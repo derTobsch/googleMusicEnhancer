@@ -1,5 +1,5 @@
 var Build = (function () {
-    "use strict";
+    'use strict';
 
     return {
 
@@ -8,14 +8,14 @@ var Build = (function () {
         },
 
         link: function (options) {
-            return merge($('<a></a>'),options);
+            return merge($('<a></a>'), options);
         },
 
         blackOut: function (options) {
 
             var blackCurtain = this.div(
                 {
-                    css : {
+                    css: {
                         'width': $(document).width(),
                         'height': $(document).height(),
                         'top': '0',
@@ -24,8 +24,8 @@ var Build = (function () {
                         'z-index': '499',
                         'background-color': 'rgb(0, 0, 0)'
                     },
-                    attr : {
-                        id : 'black-curtain'
+                    attr: {
+                        id: 'black-curtain'
                     }
                 })
                 .fadeTo('slow', 0.7)

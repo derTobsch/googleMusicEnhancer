@@ -6,29 +6,28 @@
         <link rel="stylesheet" href="../resources/qunit-1.14.0.css">
 
         <!-- Unit test files -->
-        <script src="../../src/app/classes/Util.js"></script>
-        <script src="../../src/app/classes/Build.js"></script>
-        <script src="../../src/app/classes/Persist.js"></script>
-        <script src="../../src/app/classes/Lyric.js"></script>
+        <script type="text/javascript" src="../resources/greasemonkeyMock.js"></script>
+        <script type="text/javascript" src="../../src/app/classes/Persist.js"></script>
+        <script type="text/javascript" src="../../src/app/classes/Build.js"></script>
+        <script type="text/javascript" src="../../src/app/classes/Lyric.js"></script>
+        <script type="text/javascript" src="../../src/app/classes/LyricContainer.js"></script>
+        <script type="text/javascript" src="../../src/app/classes/LyricStrategies.js"></script>
+        <script type="text/javascript" src="../../src/app/classes/Update.js"></script>
     </head>
     <body>
         <div id="qunit"></div>
         <div id="qunit-fixture"></div>
-        <script src="../resources/greasemonkeyMock.js"></script>
-        <script src="../resources/jquery-2.1.1.min.js"></script>
-        <script src="../resources/qunit-1.14.0.js"></script>
+        <script type="text/javascript" src="../resources/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="../resources/qunit-1.14.0.js"></script>
+        <script type="text/javascript" src="../resources/sinon-1.10.3.js"></script>
+        <script type="text/javascript" src="../resources/sinon-qunit-1.0.0.js"></script>
 
         <!-- tests -->
-        <script src="classes/UtilTest.js"></script>
-        <script src="classes/BuildTest.js"></script>
-        <script src="classes/PersistTest.js"></script>
-        <script src="classes/LyricTest.js"></script>
-
-        <!-- test html -->
-        <div class="hideMe"></div>
-
-        <div id="lyrics-header"></div>
-        <div id="lyrics-body"></div>
-        <div id="loadingOverlay"></div>
+        <script type="text/javascript" src="classes/PersistTest.js"></script>
+        <script type="text/javascript" src="classes/BuildTest.js"></script>
+        <script type="text/javascript" src="classes/LyricTest.js"></script>
+        <script type="text/javascript" src="classes/LyricContainerTest.js"></script>
+        <script type="text/javascript" src="classes/LyricStrategiesTest.js"></script>
+        <script type="text/javascript" src="classes/UpdateTest.js"></script>
     </body>
 </html>

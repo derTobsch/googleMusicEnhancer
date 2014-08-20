@@ -8,39 +8,62 @@ var Update = (function () {
     var linkToNewVersion = 'http://www.tobsch.org/downloads/GoogleMusicEnhancer.user.js';
     var newVersionCheckUrl = 'http://tobsch.org/?site=GoogleMusicEnhancer';
 
+    var Persist;
+
     return {
-        init: function (selector) {
-            if(selector){
-                $(selector).on('click', function () {
-                    this.check(true);
+        init: function ($updateButton, persist) {
+            if (typeof $updateButton === 'undefined' || typeof persist === 'undefined') {
+                throw 'Update button and/or persist object undefined';
+            }
+            Persist = persist;
+
+            if ($updateButton) {
+                var that = this;
+                $updateButton.on('click', function () {
+                    that.check(true);
                 });
             }
 
             return this;
         },
-        check: function (force) {
 
+        check: function (force) {
             var lastUpdateTime = Persist.findBy(updateString);
 
             if (force === true || lastUpdateTime === undefined ||
                 parseInt(lastUpdateTime) + parseInt(24 * 60 * 60 * 1000) < parseInt(String(new Date().getTime()))) {
 
-                var newVersion = getNewVersion();
+                var newVersion = this.getNewVersion();
 
-                var actVersionStripped = parseInt(version.replace(/\./g, ''));
-                var newVersionStripped = parseInt(newVersion.replace(/\./g, ''));
+                if (newVersion) {
+                    var actVersionStripped = parseInt(version.replace(/\./g, ''));
+                    var newVersionStripped = parseInt(newVersion.replace(/\./g, ''));
 
-                if (newVersionStripped && newVersionStripped > actVersionStripped) {
-                    draw({'newVersion': newVersion});
+                    if (!!newVersionStripped && newVersionStripped > actVersionStripped) {
+                        draw({'newVersion': newVersion});
+                    }
+                    else {
+                        console.log('No new version of the ' + name + ' available ' + newVersion + ' <= ' + version);
+                    }
+
+                    Persist.persist(updateString, String(new Date().getTime()));
                 }
-                else {
-                    console.log('No new version of the ' + name + ' available ' + newVersion + ' <= ' + version);
-                }
-
-                Persist.persist(updateString, String(new Date().getTime()));
             }
 
             return this;
+        },
+
+        getNewVersion: function() {
+            var response = GM_xmlhttpRequest({
+                method: 'GET',
+                synchronous: 'true',
+                url: newVersionCheckUrl
+            });
+
+            if (response.status === 200) {
+                return $(response.responseText).find('#projectVersion').text();
+            }
+            return undefined;
         }
     };
 
@@ -50,7 +73,7 @@ var Update = (function () {
         newVersionText += 'Your version: ' + version + '<br>';
         newVersionText += 'Brand new version: ' + options.newVersion + '<br><br><br>';
 
-        Build.blackOut({classesToHide: '.update-box'});
+        blackOut({classesToHide: '.update-box'});
 
         var updateDiv = $('<div></div>')
             .css({
@@ -73,17 +96,29 @@ var Update = (function () {
         $('body').append(updateDiv);
     }
 
-    function getNewVersion() {
-        var response = GM_xmlhttpRequest({
-            method: 'GET',
-            synchronous: 'true',
-            url: newVersionCheckUrl
-        });
+    function blackOut(options) {
+        var blackCurtain = Build.div(
+            {
+                css: {
+                    'width': $(document).width(),
+                    'height': $(document).height(),
+                    'top': '0',
+                    'left': '0',
+                    'position': 'absolute',
+                    'z-index': '499',
+                    'background-color': 'rgb(0, 0, 0)'
+                },
+                attr: {
+                    id: 'black-curtain'
+                }
+            })
+            .fadeTo('slow', 0.7)
+            .click(function () {
+                $(this).hide();
+                $(options.classesToHide).hide();
+            });
 
-        if (response.status === 200) {
-            return $('#projectVersion', response.responseText).html();
-        }
-        return undefined;
+        $('body').prepend(blackCurtain);
     }
 
 }());

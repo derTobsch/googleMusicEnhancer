@@ -3,9 +3,45 @@ $(function () {
 
     var sut = Lyric;
 
+    var sutChaining;
+
+    var lyricsPanelSpy;
+    var strategyStub;
+    var persistFindByStub;
+    var persistPersistStub;
+
+    var $lyricsPanel = $('#lyrics-panel');
+    var artist = 'artist';
+    var title = 'title';
+    var lyric = 'lyric';
+
+    var thisPersist;
+    var thisStrategy;
+
+    testStart(function () {
+        thisPersist = jQuery.extend({}, Persist);
+        thisStrategy = jQuery.extend({}, LyricsWiki);
+
+        lyricsPanelSpy = sinon.spy($lyricsPanel, 'trigger');
+        strategyStub = sinon.stub(thisStrategy, 'execute', function(artist, title, success){
+            success(lyric);
+        });
+        persistFindByStub = sinon.stub(thisPersist, 'findBy');
+        persistPersistStub = sinon.stub(thisPersist, 'persist');
+
+        sut.init($lyricsPanel, thisPersist);
+    });
+
+    testDone(function () {
+        lyricsPanelSpy.restore();
+        strategyStub.restore();
+        persistFindByStub.restore();
+        persistPersistStub.restore();
+    });
+
     test('Lyric search throws exception on wrong parameters', 3, function () {
         throws(function () {
-            sut.search(undefined, LyricStrategyMockSuccess);
+            sut.search(undefined, thisStrategy);
         }, 'Wrong parameters or strategy object', 'Throws a exception on wrong parameter set.');
 
         throws(function () {
@@ -18,69 +54,46 @@ $(function () {
     });
 
 
-    test('Lyric search from local storage ', 3, function () {
+    test('Lyric search from local storage ', 4, function () {
+        persistFindByStub.returns({lyric: lyric});
 
-        var artist = 'artist';
-        var title= 'title';
+        sutChaining = sut.search({artist: artist, title : title}, thisStrategy);
 
-        sut.search({artist: artist, title : title}, LyricStrategyMockSuccess);
-
-        var header = $('#lyrics-header');
-        var body = $('#lyrics-body');
-
-        strictEqual(header.html(), artist + ' - ' + title , 'Header contains artist and title');
-        strictEqual(header.attr('hash'), '-1918060687' , 'Header attribute contains artist and title hash code');
-        strictEqual(body.html(), 'lyric', 'Body contains lyric');
+        ok(lyricsPanelSpy.neverCalledWith('add-loading-overlay'));
+        ok(lyricsPanelSpy.calledWith('update', {artist: artist, title: title}));
+        ok(lyricsPanelSpy.calledWith('update', {lyric: lyric}));
+        strictEqual(sut, sutChaining, 'Chaining is correct.');
     });
 
-    test('Lyric search via the web', 4, function () {
+    test('Lyric search via the web with success', 6, function () {
+        strategyStub.restore();
+        strategyStub = sinon.stub(thisStrategy, 'execute', function(artist, title, success){
+            success(lyric);
+        });
 
-        var artist = 'noLyric';
-        var title= 'title';
+        persistFindByStub.returns(undefined);
 
-        sut.search({artist: artist, title : title}, LyricStrategyMockSuccess);
+        sutChaining = sut.search({artist: artist, title : title}, thisStrategy);
 
-        var header = $('#lyrics-header');
-        var body = $('#lyrics-body');
-
-        strictEqual(header.html(), artist + ' - ' + title , 'Header contains artist and title');
-        strictEqual(header.attr('hash'), '467455482' , 'Header attribute contains artist and title hash code');
-        strictEqual(body.html(), 'lyric', 'Body contains lyric');
-        strictEqual(Persist.findBy('lyric:' + artist + '-' + title).key, 'gme:lyric:noLyric-title', 'New lyric was saved');
+        ok(lyricsPanelSpy.calledWith('update', {artist: artist, title: title}));
+        ok(lyricsPanelSpy.calledWith('add-loading-overlay'));
+        ok(lyricsPanelSpy.calledWith('update', {lyric: lyric}));
+        ok(persistPersistStub.calledWith('lyric:' + artist + '-' + title, {lyric: lyric}));
+        ok(lyricsPanelSpy.calledBefore(persistPersistStub));
+        strictEqual(sut, sutChaining, 'Chaining is correct.');
     });
 
-    test('Lyric search via the web', 3, function () {
+    test('Lyric search via the web with error', 3, function () {
+        strategyStub.restore();
+        strategyStub = sinon.stub(thisStrategy, 'execute', function(artist, title, success, error){
+            error();
+        });
+        persistFindByStub.returns(undefined);
 
-        var artist = 'noLyric';
-        var title= 'title';
+        sutChaining = sut.search({artist: artist, title : title}, thisStrategy);
 
-        sut.search({artist: artist, title : title}, LyricStrategyMockError);
-
-        var header = $('#lyrics-header');
-        var body = $('#lyrics-body');
-
-        ok(body.html().indexOf('Oh No. No lyric found') > 0, 'Body contains no lyric found message');
-        strictEqual(header.html(), artist + ' - ' + title , 'Header contains artist and title');
-        strictEqual(header.attr('hash'), '467455482' , 'Header attribute contains artist and title hash code');
+        ok(lyricsPanelSpy.calledWith('update', {artist: artist, title: title}));
+        ok(lyricsPanelSpy.calledWith('add-loading-overlay'));
+        strictEqual(sut, sutChaining, 'Chaining is correct.');
     });
-
 });
-
-var LyricStrategyMockSuccess = (function () {
-    'use strict';
-    return {
-        execute: function (artist, title, success, error) {
-            success('lyric');
-            return {artist: artist, title: title};
-        }
-    };
-}());
-var LyricStrategyMockError = (function () {
-    'use strict';
-    return {
-        execute: function (artist, title, success, error) {
-            error('lyric', 'url');
-            return {artist: artist, title: title};
-        }
-    };
-}());

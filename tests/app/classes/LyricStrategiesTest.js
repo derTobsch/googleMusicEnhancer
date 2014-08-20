@@ -1,71 +1,63 @@
-var LyricsWiki = (function () {
-    'use strict';
-
-    var name = 'LyricsWiki';
-    var baseLyricsWikiUrl = 'http://lyrics.wikia.com/api.php?fmt=realjson';
-
-    return {
-        execute: function (artist, title, success, error) {
-            GM_xmlhttpRequest({
-                method: 'GET',
-                headers : {
-                    'Accept': 'application/json'
-                },
-                url: encodeURI(baseLyricsWikiUrl + '&artist=' + toTitleCase(artist) + '&song=' + toTitleCase(title)),
-                onload: function (response) {
-                    var songObject = $.parseJSON(response.responseText);
-
-                    if (songObject && songObject.page_id) {
-                        GM_xmlhttpRequest({
-                            method: 'GET',
-                            headers : {
-                                'Accept': 'application/xml'
-                            },
-                            url: songObject.url,
-                            onload: function (response) {
-                                success(extractLyric(response));
-                            }
-                        });
-                    }
-                    else {
-                        error(name, songObject.url);
-                    }
-                }
-            });
-        }
-    };
-    function extractLyric(response) {
-        var lyricWithComment = $(response.responseText).find('.lyricbox').clone().find('div').remove().end().html();
-        return lyricWithComment.substr(0, lyricWithComment.indexOf('<!--'));
-    }
-    function toTitleCase(str) {
-        return str.replace(/\w\S*/g, function (txt) {
-            return txt.charAt(0).toUpperCase() + txt.substr(1);
-        });
-    }
-}());
-
 $(function () {
     'use strict';
 
     var sut = LyricsWiki;
 
-    var errorMock = function (name, url) {
-        return {name: name, url: url};
-    };
-    var successMock = function (lyric) {
-        return {lyric: lyric};
-    };
+    var artist = 'artist to encode';
+    var title = 'title to encode';
 
-    test('LyricsWiki strategy test ', 3, function () {
+    var requestSpy;
 
-
-        var artist = 'artist';
-        var title = 'title';
-
-        sut.execute(artist, title, successMock, errorMock);
+    testStart(function () {
+        requestSpy = sinon.spy(window, 'GM_xmlhttpRequest');
     });
 
+    testDone(function () {
+        requestSpy.restore();
+    });
 
+    test('LyricsWiki execute throws exception on wrong arguments', 4, function () {
+        throws(function () {
+            sut.execute(artist, title, function () {
+            }, undefined);
+        }, 'Wrong or undefined arguments', 'Throws a exception on wrong parameter set.');
 
+        throws(function () {
+            sut.execute(artist, title, undefined, function () {
+            });
+        }, 'Wrong or undefined arguments', 'Throws a exception on wrong parameter set.');
+
+        throws(function () {
+            sut.execute(artist, undefined, function () {
+            }, function () {
+            });
+        }, 'Wrong or undefined arguments', 'Throws a exception on wrong parameter set.');
+
+        throws(function () {
+            sut.execute(undefined, title, function () {
+            }, function () {
+            });
+        }, 'Wrong or undefined arguments', 'Throws a exception on wrong parameter set.');
+    });
+
+    test('LyricsWiki strategy test', function () {
+        var name, url;
+
+        sut.execute(artist, title,
+            function () {
+            },
+            function (thisName, thisUrl) {
+                name = thisName;
+                url = thisUrl;
+            }
+        );
+
+        ok(requestSpy.calledOnce);
+        ok(requestSpy.calledWith({
+                method: 'GET',
+                url: 'https://lyrics.wikia.com/api.php?fmt=realjson&artist=Artist%20To%20Encode&song=Title%20To%20Encode',
+                onload: sinon.match.func
+            })
+        );
+    });
 });

@@ -2,39 +2,11 @@ var Build = (function () {
     'use strict';
 
     return {
-
         div: function (options) {
             return merge($('<div></div>'), options);
         },
-
         link: function (options) {
             return merge($('<a></a>'), options);
-        },
-
-        blackOut: function (options) {
-
-            var blackCurtain = this.div(
-                {
-                    css: {
-                        'width': $(document).width(),
-                        'height': $(document).height(),
-                        'top': '0',
-                        'left': '0',
-                        'position': 'absolute',
-                        'z-index': '499',
-                        'background-color': 'rgb(0, 0, 0)'
-                    },
-                    attr: {
-                        id: 'black-curtain'
-                    }
-                })
-                .fadeTo('slow', 0.7)
-                .click(function () {
-                    $(this).hide();
-                    $(options.classesToHide).hide();
-                });
-
-            $('body').prepend(blackCurtain);
         }
     };
 

@@ -34,24 +34,4 @@ $(function () {
         strictEqual($link.attr('title'), 'testTitle', 'Id is not set properly.');
         strictEqual($link.css('background-color'), 'rgb(0, 0, 0)', 'Property is not correct.');
     });
-
-    test('Build black curtain test', 9, function () {
-
-        sut.blackOut({classesToHide: '.hideMe'});
-
-        var $blackCurtain = $('#black-curtain');
-
-        ok($blackCurtain, 'Not undefined or null.');
-        ok(parseInt($blackCurtain.css('width')) > 200, 'Width is not set properly.');
-        ok(parseInt($blackCurtain.css('height')) > 200,'Height is not set properly.');
-        strictEqual($blackCurtain.css('top'), '0px', 'top is not set properly.');
-        strictEqual($blackCurtain.css('left'), '0px', 'Left is not set properly.');
-        strictEqual($blackCurtain.css('position'), 'absolute', 'Position is not set properly.');
-        strictEqual($blackCurtain.css('z-index'), '499', 'zIndex is not set properly.');
-        strictEqual($blackCurtain.css('background-color'), 'rgb(0, 0, 0)', 'Background color is not set properly.');
-        ok($blackCurtain.is(':visible'), 'Black curtain is visible.');
-
-        $blackCurtain.hide();
-    });
-
 });

@@ -2,7 +2,7 @@
     "name": "GoogleMusicEnhancer",
     "title": "GoogleMusicEnhancer",
     "description": "Will enhance your google music experience.",
-    "version": "0.2.0",
+    "version": "0.4.0",
     "homepage": "https://github.com/derTobsch/googleMusicEnhancer",
     "author": {
         "name": "Tobias Schneider",
@@ -10,14 +10,8 @@
     },
     "repository": {
         "type": "git",
-        "url": "git://github.com/jquery/jquery-migrate.git"
-        },
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "https://github.com/jquery/jquery-migrate/blob/master/LICENSE-MIT"
-        }
-    ],
+        "url": "git@github.com:derTobsch/googleMusicEnhancer.git"
+    },
     "devDependencies": {
         "grunt": "0.4.2",
         "grunt-contrib-concat": "0.4.0",

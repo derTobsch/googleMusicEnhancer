@@ -27,7 +27,7 @@ function Lyric($panel, persist) {
             function mutationHandler() {
                 var searchParameter = {artist: $(artistSelector).text(), title: $(titleSelector).text()};
 
-                if (!!lastSearchParameter || JSON.stringify(lastSearchParameter) !== JSON.stringify(searchParameter)) {
+                if (!lastSearchParameter || (lastSearchParameter && JSON.stringify(lastSearchParameter) !== JSON.stringify(searchParameter))) {
                     try {
                         findBy(new LyricsWiki(new Build()), searchParameter);
                         lastSearchParameter = searchParameter;

@@ -1,8 +1,16 @@
-function LyricsWiki() {
+function LyricsWiki(build) {
     'use strict';
 
     var name = 'LyricsWiki';
     var baseLyricsWikiUrl = 'https://lyrics.wikia.com/api.php?fmt=realjson';
+
+    var baseGoogleUrl = 'http://www.google.com/';
+
+    if (typeof build === 'undefined') {
+        throw 'Build object undefined';
+    }
+
+    var Build = build;
 
     return {
         execute: function (artist, title, success, error) {
@@ -21,11 +29,40 @@ function LyricsWiki() {
                     });
                 }
                 else {
-                    error(name, songObject.url);
+                    error(getErrorMessage(artist, title, songObject.url));
                 }
             });
         }
     };
+
+    function getErrorMessage(artist, title, url) {
+        var googleSearchString = encodeURI(baseGoogleUrl + '?q=lyrics+"' + artist +
+            ' ' + title + '"#q=lyrics+"' + artist + ' ' + title +'"');
+
+        return $('<div></div>')
+            .append(
+                Build.div({text: '<b>Oh No. No lyric found.<b>', attr: {class: 'lyrics-not-found-text space-top'}})
+            ).append(
+                Build.div({text: 'Add one and make this experience a little bit better!',
+                    attr: {class: 'lyrics-not-found-text'}})
+            ).append(
+                Build.div({text: '<b>First</b> search for the correct lyric. YippieYeah!',
+                    attr: {class: 'lyrics-not-found-text space-top'}})
+            ).append(
+                Build.div({attr: {class: 'lyrics-not-found-link'}})
+                    .append(Build.link({attr: {href: googleSearchString},
+                        text: 'Search for \'' + artist + ' - ' + title + '\''}))
+            ).append(
+                Build.div({text: '<b>Then</b> add it to ' + name + '. Awesome!',
+                    attr: {class: 'lyrics-not-found-text space-top'}})
+            ).append(
+                Build.div({attr: {class: 'lyrics-not-found-link'}})
+                    .append(Build.link({attr: {href: url}, text: 'Add this great song!'}))
+            ).append(
+                Build.div({text: '<b>At Last</b> refresh to load the lyric you provided',
+                    attr: { class: 'lyrics-not-found-text space-top'}})
+            );
+    }
 
     function get(url, callback) {
         GM_xmlhttpRequest({

@@ -40,7 +40,6 @@ function LyricContainer($parent, build) {
                             if (parameter.title && parameter.artist) {
                                 $lyricsHeader.html(parameter.artist + ' - ' + parameter.title);
                             }
-
                             if (parameter.lyric) {
                                 $lyricsBody.html(parameter.lyric);
                             }

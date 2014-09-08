@@ -17,12 +17,10 @@ $(function () {
 
     var thisPersist;
     var thisStrategy;
-    var thisBuild;
 
     testStart(function () {
         thisPersist = new Persist();
-        thisStrategy = new LyricsWiki();
-        thisBuild = new Build();
+        thisStrategy = new LyricsWiki(new Build());
 
         lyricsPanelSpy = sinon.spy($lyricsPanel, 'trigger');
         strategyStub = sinon.stub(thisStrategy, 'execute', function(artist, title, success){
@@ -31,7 +29,7 @@ $(function () {
         persistFindByStub = sinon.stub(thisPersist, 'findBy');
         persistPersistStub = sinon.stub(thisPersist, 'persist');
 
-        sut = new Lyric($lyricsPanel, thisPersist, thisBuild);
+        sut = new Lyric($lyricsPanel, thisPersist);
     });
 
     testDone(function () {
@@ -41,18 +39,14 @@ $(function () {
         persistPersistStub.restore();
     });
 
-    test('Lyric instantiation throws exception on wrong parameters', 3, function () {
+    test('Lyric instantiation throws exception on wrong parameters', 2, function () {
         throws(function () {
-            new Lyric($lyricsPanel, thisPersist, undefined);
-        }, 'Panel, build and/or persist object undefined', 'Throws a exception on wrong parameter set.');
+            new Lyric(undefined, thisPersist);
+        }, 'Panel and/or persist object undefined', 'Throws a exception on wrong parameter set.');
 
         throws(function () {
-            new Lyric(undefined, thisPersist, thisBuild);
-        }, 'Panel, build and/or persist object undefined', 'Throws a exception on wrong parameter set.');
-
-        throws(function () {
-            new Lyric($lyricsPanel, undefined, thisBuild);
-        }, 'Panel, build and/or persist object undefined', 'Throws a exception on wrong parameter set.');
+            new Lyric($lyricsPanel, undefined);
+        }, 'Panel and/or persist object undefined', 'Throws a exception on wrong parameter set.');
     });
 
     test('Lyric search throws exception on wrong parameters', 3, function () {
@@ -80,7 +74,7 @@ $(function () {
         strictEqual(sut, sutChaining, 'Chaining is correct.');
     });
 
-    test('Lyric search via the web with success', 6, function () {
+    test('Lyric search via the web with success', 5, function () {
         strategyStub.restore();
         strategyStub = sinon.stub(thisStrategy, 'execute', function(artist, title, success){
             success(lyric);
@@ -94,14 +88,15 @@ $(function () {
         ok(lyricsPanelSpy.calledWith('add-loading-overlay'));
         ok(lyricsPanelSpy.calledWith('update', {lyric: lyric}));
         ok(persistPersistStub.calledWith('lyric:' + artist + '-' + title, {lyric: lyric}));
-        ok(lyricsPanelSpy.calledBefore(persistPersistStub));
         strictEqual(sut, sutChaining, 'Chaining is correct.');
     });
 
-    test('Lyric search via the web with error', 3, function () {
+    test('Lyric search via the web with error', 4, function () {
+        var $errorMessage = $('<div>errorMessage</div>');
+
         strategyStub.restore();
         strategyStub = sinon.stub(thisStrategy, 'execute', function(artist, title, success, error){
-            error();
+            error($errorMessage);
         });
         persistFindByStub.returns(undefined);
 
@@ -109,6 +104,7 @@ $(function () {
 
         ok(lyricsPanelSpy.calledWith('update', {artist: artist, title: title}));
         ok(lyricsPanelSpy.calledWith('add-loading-overlay'));
+        ok(lyricsPanelSpy.calledWith('update', {lyric: $errorMessage}));
         strictEqual(sut, sutChaining, 'Chaining is correct.');
     });
 });

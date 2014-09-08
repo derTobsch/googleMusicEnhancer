@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            GoogleMusicEnhancer (GME)
-// @version         0.4.0
+// @version         0.5.0
 // @namespace       http://www.tobsch.org/
 // @author          Tobias Schneider
 // @homepage        http://www.tobsch.org
@@ -36,6 +36,6 @@ $(window).load(function () {
         .registerToggler()
         .registerEvents();
 
-    new Lyric($('#lyrics-panel'), persist, build)
+    new Lyric($('#lyrics-panel'), persist)
         .registerSongChangeListener('#playerSongInfo', '#playerSongTitle', '#player-artist');
 });

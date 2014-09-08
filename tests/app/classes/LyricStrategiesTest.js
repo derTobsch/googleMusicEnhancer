@@ -3,6 +3,8 @@ $(function () {
 
     var sut;
 
+    var build;
+
     var artist = 'artist to encode';
     var title = 'title to encode';
 
@@ -10,13 +12,21 @@ $(function () {
 
     testStart(function () {
 
-        sut = new LyricsWiki();
+        build = new Build();
+
+        sut = new LyricsWiki(build);
 
         requestSpy = sinon.spy(window, 'GM_xmlhttpRequest');
     });
 
     testDone(function () {
         requestSpy.restore();
+    });
+
+    test('Lyric container init throws exception when no parent defined', 1, function () {
+        throws(function () {
+            new LyricsWiki();
+        }, 'Build object undefined', 'Throws a exception when parent is not defined.');
     });
 
     test('LyricsWiki execute throws exception on wrong arguments', 4, function () {

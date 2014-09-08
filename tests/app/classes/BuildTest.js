@@ -1,7 +1,11 @@
 $(function () {
     'use strict';
 
-    var sut = Build;
+    var sut;
+
+    testStart(function () {
+        sut = new Build();
+    });
 
     test('Build div test with undefined options', 2, function () {
 
@@ -11,7 +15,17 @@ $(function () {
 
     test('Build div test', 7, function () {
 
-        var $div = sut.div({ attr : {class: 'firstClass secondClass', id: 'testId', title: 'testTitle'}, text : 'testText', css : {'background-color': 'rgb(0, 0, 0)'}});
+        var $div = sut.div({
+            attr: {
+                class: 'firstClass secondClass',
+                id: 'testId',
+                title: 'testTitle'
+            },
+            text: 'testText',
+            css: {
+                'background-color': 'rgb(0, 0, 0)'
+            }
+        });
 
         ok($div, 'Not undefined or null.');
         ok($div.hasClass('firstClass'), 'Class is not set properly.');
@@ -24,7 +38,16 @@ $(function () {
 
     test('Build link test', 7, function () {
 
-        var $link = sut.link({ attr : {class: 'firstClass secondClass', id: 'testId', title: 'testTitle'}, text : 'testText', css : {'background-color': 'rgb(0, 0, 0)'}});
+        var $link = sut.link({
+            attr: {
+                class: 'firstClass secondClass',
+                id: 'testId', title: 'testTitle'
+            },
+            text: 'testText',
+            css: {
+                'background-color': 'rgb(0, 0, 0)'
+            }
+        });
 
         ok($link, 'Not undefined or null.');
         ok($link.hasClass('firstClass'), 'Class is not set properly.');

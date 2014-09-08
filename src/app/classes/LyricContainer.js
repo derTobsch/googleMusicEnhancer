@@ -1,27 +1,22 @@
-var LyricContainer = (function () {
+function LyricContainer($parent, build) {
     'use strict';
 
     var $lyricsClip, $lyricsPanel, $lyricsHeader, $lyricsBody;
     var $overlayLoading;
 
+
+    if (typeof build === 'undefined') {
+        throw 'Build object undefined';
+    }
+
+    if (typeof $parent === 'undefined') {
+        throw 'Please define a selector';
+    }
+    var Build = build;
+
+    init($parent);
+
     return {
-        init: function ($parent) {
-            if (typeof $parent === 'undefined') {
-                throw 'Please define a selector';
-            }
-
-            $lyricsPanel = Build.div({attr: {class: 'lyrics-panel un-clicked', id: 'lyrics-panel'}});
-            $lyricsClip = Build.div({attr: {class: 'lyrics-clip', id: 'lyrics-clip'}, text: 'Lyric'});
-            $lyricsHeader = Build.div({attr: {class: 'lyrics-header', id: 'lyrics-header'}, text: 'Lyrics Panel'});
-            $lyricsBody = Build.div({attr: {class: 'lyrics-body', id: 'lyrics-body'}, text: 'I can not hear a sound. Play something loud!' });
-
-            $parent.append($lyricsPanel.append($lyricsClip).append($lyricsHeader).append($lyricsBody));
-
-            $overlayLoading = $('<div id="loading-overlay" data-type="regular-loading-overlay"></div>');
-
-            return this;
-        },
-
         registerToggler: function () {
             if ($lyricsClip) {
                 $lyricsClip.on('click', function () {
@@ -56,4 +51,15 @@ var LyricContainer = (function () {
             return this;
         }
     };
-}());
+
+    function init(){
+        $lyricsPanel = Build.div({attr: {class: 'lyrics-panel un-clicked', id: 'lyrics-panel'}});
+        $lyricsClip = Build.div({attr: {class: 'lyrics-clip', id: 'lyrics-clip'}, text: 'Lyric'});
+        $lyricsHeader = Build.div({attr: {class: 'lyrics-header', id: 'lyrics-header'}, text: 'Lyrics Panel'});
+        $lyricsBody = Build.div({attr: {class: 'lyrics-body', id: 'lyrics-body'}, text: 'I can not hear a sound. Play something loud!' });
+
+        $parent.append($lyricsPanel.append($lyricsClip).append($lyricsHeader).append($lyricsBody));
+
+        $overlayLoading = $('<div id="loading-overlay" data-type="regular-loading-overlay"></div>');
+    }
+}

@@ -1,5 +1,12 @@
-var Update = (function () {
+function Update(persist, build) {
     'use strict';
+
+    if (typeof persist === 'undefined') {
+        throw 'Persist object undefined';
+    }
+    if (typeof build === 'undefined') {
+        throw 'Build object undefined';
+    }
 
     var version = GM_info.script.version;
     var updateString = 'last-update';
@@ -8,14 +15,14 @@ var Update = (function () {
     var linkToNewVersion = 'http://www.tobsch.org/downloads/GoogleMusicEnhancer.user.js';
     var newVersionCheckUrl = 'http://tobsch.org/?site=GoogleMusicEnhancer';
 
-    var Persist;
+    var Persist = persist;
+    var Build = build;
 
     return {
-        init: function ($updateButton, persist) {
-            if (typeof $updateButton === 'undefined' || typeof persist === 'undefined') {
-                throw 'Update button and/or persist object undefined';
+        registerUpdateButtonEvent: function ($updateButton) {
+            if (typeof $updateButton === 'undefined' ) {
+                throw 'Update button object undefined';
             }
-            Persist = persist;
 
             if ($updateButton) {
                 var that = this;
@@ -120,5 +127,4 @@ var Update = (function () {
 
         $('body').prepend(blackCurtain);
     }
-
-}());
+}

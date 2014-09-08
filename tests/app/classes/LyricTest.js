@@ -1,7 +1,7 @@
 $(function () {
     'use strict';
 
-    var sut = Lyric;
+    var sut;
 
     var sutChaining;
 
@@ -17,10 +17,12 @@ $(function () {
 
     var thisPersist;
     var thisStrategy;
+    var thisBuild;
 
     testStart(function () {
-        thisPersist = jQuery.extend({}, Persist);
-        thisStrategy = jQuery.extend({}, LyricsWiki);
+        thisPersist = new Persist();
+        thisStrategy = new LyricsWiki();
+        thisBuild = new Build();
 
         lyricsPanelSpy = sinon.spy($lyricsPanel, 'trigger');
         strategyStub = sinon.stub(thisStrategy, 'execute', function(artist, title, success){
@@ -29,7 +31,7 @@ $(function () {
         persistFindByStub = sinon.stub(thisPersist, 'findBy');
         persistPersistStub = sinon.stub(thisPersist, 'persist');
 
-        sut.init($lyricsPanel, thisPersist);
+        sut = new Lyric($lyricsPanel, thisPersist, thisBuild);
     });
 
     testDone(function () {
@@ -37,6 +39,20 @@ $(function () {
         strategyStub.restore();
         persistFindByStub.restore();
         persistPersistStub.restore();
+    });
+
+    test('Lyric instantiation throws exception on wrong parameters', 3, function () {
+        throws(function () {
+            new Lyric($lyricsPanel, thisPersist, undefined);
+        }, 'Panel, build and/or persist object undefined', 'Throws a exception on wrong parameter set.');
+
+        throws(function () {
+            new Lyric(undefined, thisPersist, thisBuild);
+        }, 'Panel, build and/or persist object undefined', 'Throws a exception on wrong parameter set.');
+
+        throws(function () {
+            new Lyric($lyricsPanel, undefined, thisBuild);
+        }, 'Panel, build and/or persist object undefined', 'Throws a exception on wrong parameter set.');
     });
 
     test('Lyric search throws exception on wrong parameters', 3, function () {
@@ -52,7 +68,6 @@ $(function () {
             sut.search(undefined, undefined);
         }, 'Wrong parameters or strategy object', 'Throws a exception on wrong parameter set.');
     });
-
 
     test('Lyric search from local storage ', 4, function () {
         persistFindByStub.returns({lyric: lyric});

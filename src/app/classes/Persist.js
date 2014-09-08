@@ -1,4 +1,4 @@
-var Persist = (function () {
+function Persist() {
     'use strict';
 
     var prefix = 'gme:';
@@ -39,5 +39,4 @@ var Persist = (function () {
             return GM_deleteValue(key);
         }
     };
-
-}());
+}

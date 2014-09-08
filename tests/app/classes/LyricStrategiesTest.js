@@ -1,7 +1,7 @@
 $(function () {
     'use strict';
 
-    var sut = LyricsWiki;
+    var sut;
 
     var artist = 'artist to encode';
     var title = 'title to encode';
@@ -9,6 +9,9 @@ $(function () {
     var requestSpy;
 
     testStart(function () {
+
+        sut = new LyricsWiki();
+
         requestSpy = sinon.spy(window, 'GM_xmlhttpRequest');
     });
 

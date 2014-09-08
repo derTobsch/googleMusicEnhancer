@@ -1,10 +1,12 @@
 $(function () {
     'use strict';
 
-    var sut = Update;
+    var sut;
 
     var sutChaining;
+
     var thisPersist;
+    var thisBuild;
 
     var sutSpy;
     var sutStub;
@@ -14,37 +16,41 @@ $(function () {
 
     testStart(function () {
         $fixture = $( '#qunit-fixture' );
-
         $updateButton = $('<div id="update"></div>');
         $fixture.append($updateButton);
 
-        thisPersist = jQuery.extend({}, Persist);
+        thisPersist = new Persist();
+        thisBuild = new Build();
+
+        sut = new Update(thisPersist, thisBuild);
 
         sutStub = sinon.stub(sut, 'getNewVersion');
-
-        sutChaining = sut.init($updateButton, thisPersist);
     });
 
     testDone(function () {
         sutStub.restore();
     });
 
-    test('Update init throws exception on wrong arguments', 3, function () {
+    test('create Update throws exception on wrong arguments', 2, function () {
         throws(function () {
-            sut.init(undefined, thisPersist);
-        }, 'Update button and/or persist object undefined', 'Throws a exception on wrong parameter set.');
+            sut = new Update(undefined, thisBuild);
+        }, 'Persist object undefined', 'Throws a exception on wrong parameter set.');
 
         throws(function () {
-            sut.init($updateButton, undefined);
-        }, 'Update button and/or persist object undefined', 'Throws a exception on wrong parameter set.');
-
-        throws(function () {
-            sut.init(undefined, undefined);
-        }, 'Update button and/or persist object undefined', 'Throws a exception on wrong parameter set.');
+            sut = new Update(thisPersist, undefined);
+        }, 'Build object undefined', 'Throws a exception on wrong parameter set.');
     });
 
-    test('Update init', 2, function () {
+    test('Update registerUpdateButtonEvent throws exception on wrong arguments', 1, function () {
+        throws(function () {
+            sut.registerUpdateButtonEvent(undefined);
+        }, 'Update button object undefined', 'Throws a exception on wrong parameter set.');
+    });
+
+    test('Update registerUpdateButtonEvent', 2, function () {
         sutSpy = sinon.spy(sut, 'check');
+
+        sutChaining = sut.registerUpdateButtonEvent($updateButton);
 
         $updateButton.click();
 

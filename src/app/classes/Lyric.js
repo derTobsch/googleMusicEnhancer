@@ -1,23 +1,18 @@
-var Lyric = (function () {
+function Lyric($panel, persist, build) {
     'use strict';
+
+    if (typeof $panel === 'undefined' || typeof persist === 'undefined' || typeof build === 'undefined') {
+        throw 'Panel, build and/or persist object undefined';
+    }
 
     var baseGoogleUrl = 'http://www.google.com/';
     var lastSearchParameter;
 
-    var $lyricsPanel;
-    var Persist;
+    var $lyricsPanel = $panel;
+    var Persist = persist;
+    var Build = build;
 
     return {
-        init: function ($panel, persist) {
-            if (typeof $panel === 'undefined' || typeof persist === 'undefined') {
-                throw 'Panel and/or persist object undefined';
-            }
-            $lyricsPanel = $panel;
-            Persist = persist;
-
-            return this;
-        },
-
         search: function (parameter, strategy) {
             if (typeof parameter === 'undefined' || typeof strategy !== 'object') {
                 throw 'Wrong parameters or strategy object';
@@ -37,7 +32,7 @@ var Lyric = (function () {
 
                 if (!!lastSearchParameter || JSON.stringify(lastSearchParameter) !== JSON.stringify(searchParameter)) {
                     try {
-                        findBy(LyricsWiki, searchParameter);
+                        findBy(new LyricsWiki(), searchParameter);
                         lastSearchParameter = searchParameter;
                     } catch (e) {
                         console.log('GME: ' + e.message);
@@ -101,4 +96,4 @@ var Lyric = (function () {
             );
         }
     }
-}());
+}

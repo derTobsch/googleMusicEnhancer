@@ -1,4 +1,4 @@
-var Build = (function () {
+function Build() {
     'use strict';
 
     return {
@@ -26,5 +26,4 @@ var Build = (function () {
         }
         return $element.clone();
     }
-
-}());
+}

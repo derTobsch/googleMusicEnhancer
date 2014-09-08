@@ -25,16 +25,17 @@ GM_addStyle('<!-- @import style.css -->');
 $(window).load(function () {
     'use strict';
 
-    Update
-        .init($('.music-banner-icon'), Persist)
+    var persist = new Persist();
+    var build = new Build();
+
+    new Update(persist, build)
+        .registerUpdateButtonEvent($('.music-banner-icon'))
         .check(false);
 
-    LyricContainer
-        .init($('#main'))
+    new LyricContainer($('#main'), build)
         .registerToggler()
         .registerEvents();
 
-    Lyric
-        .init($('#lyrics-panel'), Persist)
+    new Lyric($('#lyrics-panel'), persist, build)
         .registerSongChangeListener('#playerSongInfo', '#playerSongTitle', '#player-artist');
 });

@@ -1,4 +1,4 @@
-var LyricsWiki = (function () {
+function LyricsWiki() {
     'use strict';
 
     var name = 'LyricsWiki';
@@ -49,4 +49,4 @@ var LyricsWiki = (function () {
             return txt.charAt(0).toUpperCase() + txt.substr(1);
         });
     }
-}());
+}

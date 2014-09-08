@@ -1,8 +1,10 @@
 $(function () {
     'use strict';
 
-    var sut = LyricContainer;
+    var sut;
     var sutChaining;
+
+    var build;
 
     var $fixture;
 
@@ -17,7 +19,10 @@ $(function () {
         $fixture.append($('<div id="main"></div>'));
 
         $main = $('#main');
-        sutChaining = sut.init($main);
+
+        build = new Build();
+
+        sut = new LyricContainer($main, build);
 
         $panel = $main.find('#lyrics-panel');
         $clip = $main.find('#lyrics-panel #lyrics-clip');
@@ -27,11 +32,17 @@ $(function () {
 
     test('Lyric container init throws exception when no parent defined', 1, function () {
         throws(function () {
-            sut.init();
+            new LyricContainer(undefined, build);
         }, 'Please define a selector', 'Throws a exception when parent is not defined.');
     });
 
-    test('Lyric container ', 13, function () {
+    test('Lyric container init throws exception when no build defined', 1, function () {
+        throws(function () {
+            new LyricContainer($main, undefined);
+        }, 'Build object undefined', 'Throws a exception when build is not defined.');
+    });
+
+    test('Lyric container ', 12, function () {
         equal($panel.hasClass('lyrics-panel'), true, 'Panel has class lyrics-panel');
         equal($panel.hasClass('un-clicked'), true, 'Panel is un-clicked');
         equal($panel.attr('id'), 'lyrics-panel', 'Panel has id lyrics-panel');
@@ -47,8 +58,6 @@ $(function () {
         equal($body.hasClass('lyrics-body'), true, 'Body has class lyrics-body');
         equal($body.attr('id'), 'lyrics-body', 'Body has id lyrics-body');
         equal($body.text(), 'I can not hear a sound. Play something loud!', 'Header has text: I can not hear a sound. Play something loud!');
-
-        strictEqual(sut, sutChaining, 'Chaining is correct.');
     });
 
     test('Lyric container register toggler', 3, function () {

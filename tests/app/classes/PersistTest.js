@@ -1,7 +1,11 @@
 $(function () {
     'use strict';
 
-    var sut = Persist;
+    var sut;
+
+    testStart(function () {
+        sut = new Persist();
+    });
 
     test('Persist persist test with undefined key', 1, function () {
         var isStored = sut.persist(undefined, {lyric: 'lyricBashinat0r'});

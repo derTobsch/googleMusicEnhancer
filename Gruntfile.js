@@ -1,4 +1,5 @@
 module.exports = function (grunt) {
+    'use strict';
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -27,7 +28,7 @@ module.exports = function (grunt) {
                         },
                         {
                             pattern: /'/g,
-                            replacement: "\""
+                            replacement: '\"'
                         }
                     ]
                 }
@@ -40,7 +41,7 @@ module.exports = function (grunt) {
                     replacements: [
                         {
                             pattern: /<!-- @import (.*?) -->/ig,
-                            replacement: function (match, p1, offset, string) {
+                            replacement: function (match, p1) {
                                 return grunt.file.read(grunt.config.get('config.dist') + p1);
                             }
                         }
@@ -62,7 +63,7 @@ module.exports = function (grunt) {
             }
         },
         qunit: {
-            files: [ "tests/**/*.html" ]
+            files: [ 'tests/**/*.html' ]
         }
     });
 

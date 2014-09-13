@@ -12,7 +12,7 @@ http://tobsch.org/?site=GoogleMusicEnhancer
 ![Google Music lyrics](http://tobsch.org/img/GoogleMusicEnhancer/927cf659a1ef.png)
 
 
-![GME Travis CI Master](https://travis-ci.org/derTobsch/googleMusicEnhancer.svg?branch=master)
+[![Build Status](https://travis-ci.org/derTobsch/googleMusicEnhancer.svg?branch=master)](https://travis-ci.org/derTobsch/googleMusicEnhancer)
 
 How to 'build' this project:
 ====================================================

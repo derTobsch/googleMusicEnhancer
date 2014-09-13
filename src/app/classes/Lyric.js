@@ -21,6 +21,7 @@ function Lyric($panel, persist) {
         },
 
         registerSongChangeListener: function (changeListenerSelector, titleSelector, artistSelector) {
+            var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
             var myObserver = new MutationObserver(mutationHandler);
             myObserver.observe(document.querySelector(changeListenerSelector), { childList: true });
 

@@ -9,7 +9,7 @@
 //
 // @include         https://play.google.com/music/listen*
 //
-// @require         http://code.jquery.com/jquery-2.1.1.min.js
+// @require         http://code.jquery.com/jquery-2.1.3.min.js
 //
 // @grant           GM_addStyle
 // @grant           GM_xmlhttpRequest

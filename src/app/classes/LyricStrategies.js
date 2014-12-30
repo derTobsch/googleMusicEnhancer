@@ -73,7 +73,7 @@ function LyricsWiki(build) {
     }
 
     function extractLyric(response) {
-        var lyricWithComment = $(response.responseText).find('.lyricbox').clone().find('div').remove().end().html();
+        var lyricWithComment = $(response.responseText).find('.lyricbox').clone().children(':not(br)').remove().end().html();
         return lyricWithComment.substr(0, lyricWithComment.indexOf('<!--'));
     }
 

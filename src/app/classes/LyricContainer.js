@@ -42,6 +42,7 @@ function LyricContainer($parent, build) {
                             }
                             if (parameter.lyric) {
                                 $lyricsBody.html(parameter.lyric);
+                                $lyricsBody.scrollTop(0);
                             }
                         }
                     });

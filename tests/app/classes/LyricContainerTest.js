@@ -72,10 +72,8 @@ $(function () {
         equal($panel.hasClass('clicked'), true, 'Panel has been clicked');
     });
 
-    test('Lyric container register events', 5, function () {
-        sutChaining = sut.registerEvents();
-
-        strictEqual(sut, sutChaining, 'Chaining is correct.');
+    test('Lyric container register event loading overlay', 2, function () {
+        sut.registerEvents();
 
         $panel.trigger('add-loading-overlay');
 
@@ -83,10 +81,38 @@ $(function () {
 
         equal($loadingOverlay.attr('id'), 'loading-overlay', 'Loading-overlay has been added with id');
         equal($loadingOverlay.attr('data-type'), 'regular-loading-overlay', 'Loading-overlay has been added with data-type');
+    });
 
-        $panel.trigger('update', {artist: 'artist', title: 'title', lyric: 'lyric'});
+    test('Lyric container register event update and trigger with headline change', 2, function () {
+        sut.registerEvents();
+
+        $panel.trigger('update', {artist: 'artist', title: 'title'});
 
         equal($header.html(), 'artist - title', 'Container update has correct header information');
+        equal($body.html(), 'I can not hear a sound. Play something loud!', 'Default body text set');
+    });
+
+    test('Lyric container no scrolling on headline change', 1, function () {
+        sut.registerEvents();
+        $body.css({height: '10px', overflowY: 'scroll'}).scrollTop(5);
+
+        $panel.trigger('update', {artist: 'artist', title: 'title'});
+
+        equal($body.scrollTop(), '5', 'Container update without lyric that does not reset the scrolling');
+    });
+
+    test('Lyric container register event update and trigger with lyric change', 3, function () {
+        sut.registerEvents();
+
+        $panel.trigger('update', {lyric: 'lyric'});
+
+        equal($header.html(), 'Lyrics Panel', 'Default headline is set');
         equal($body.html(), 'lyric', 'Container update has correct body information');
+        equal($body.scrollTop(), '0', 'Container update reset the scrolling');
+    });
+
+    test('Lyric container register event chaining', 1, function () {
+        sutChaining = sut.registerEvents();
+        strictEqual(sut, sutChaining, 'Chaining is correct.');
     });
 });

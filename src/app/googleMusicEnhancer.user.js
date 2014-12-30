@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name            GoogleMusicEnhancer (GME)
-// @version         0.5.0
+// @version         0.6.0
 // @namespace       http://www.tobsch.org/
 // @author          Tobias Schneider
-// @homepage        http://www.tobsch.org
+// @homepage        http://www.tobsch.org/
 // @licence         http://www.opensource.org/licenses/mit-license.php
 // @description     Improvements and better usability for google music
 //

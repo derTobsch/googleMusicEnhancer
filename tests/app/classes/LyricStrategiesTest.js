@@ -10,7 +10,7 @@ $(function () {
 
     var requestSpy;
 
-    testStart(function () {
+    QUnit.testStart(function () {
 
         build = new Build();
 
@@ -19,17 +19,17 @@ $(function () {
         requestSpy = sinon.spy(window, 'GM_xmlhttpRequest');
     });
 
-    testDone(function () {
+    QUnit.testDone(function () {
         requestSpy.restore();
     });
 
-    test('Lyric container init throws exception when no parent defined', 1, function () {
+    QUnit.test('Lyric container init throws exception when no parent defined', 1, function () {
         throws(function () {
             new LyricsWiki();
         }, 'Build object undefined', 'Throws a exception when parent is not defined.');
     });
 
-    test('LyricsWiki execute throws exception on wrong arguments', 4, function () {
+    QUnit.test('LyricsWiki execute throws exception on wrong arguments', 4, function () {
         throws(function () {
             sut.execute(artist, title, function () {
             }, undefined);
@@ -53,7 +53,7 @@ $(function () {
         }, 'Wrong or undefined arguments', 'Throws a exception on wrong parameter set.');
     });
 
-    test('LyricsWiki strategy test', function () {
+    QUnit.test('LyricsWiki strategy test', function () {
         var name, url;
 
         sut.execute(artist, title,

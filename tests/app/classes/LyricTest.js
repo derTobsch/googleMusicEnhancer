@@ -18,7 +18,7 @@ $(function () {
     var thisPersist;
     var thisStrategy;
 
-    testStart(function () {
+    QUnit.testStart(function () {
         thisPersist = new Persist();
         thisStrategy = new LyricsWiki(new Build());
 
@@ -32,14 +32,14 @@ $(function () {
         sut = new Lyric($lyricsPanel, thisPersist);
     });
 
-    testDone(function () {
+    QUnit.testDone(function () {
         lyricsPanelSpy.restore();
         strategyStub.restore();
         persistFindByStub.restore();
         persistPersistStub.restore();
     });
 
-    test('Lyric instantiation throws exception on wrong parameters', 2, function () {
+    QUnit.test('Lyric instantiation throws exception on wrong parameters', 2, function () {
         throws(function () {
             new Lyric(undefined, thisPersist);
         }, 'Panel and/or persist object undefined', 'Throws a exception on wrong parameter set.');
@@ -49,7 +49,7 @@ $(function () {
         }, 'Panel and/or persist object undefined', 'Throws a exception on wrong parameter set.');
     });
 
-    test('Lyric search throws exception on wrong parameters', 3, function () {
+    QUnit.test('Lyric search throws exception on wrong parameters', 3, function () {
         throws(function () {
             sut.search(undefined, thisStrategy);
         }, 'Wrong parameters or strategy object', 'Throws a exception on wrong parameter set.');
@@ -63,7 +63,7 @@ $(function () {
         }, 'Wrong parameters or strategy object', 'Throws a exception on wrong parameter set.');
     });
 
-    test('Lyric search from local storage ', 4, function () {
+    QUnit.test('Lyric search from local storage ', 4, function () {
         persistFindByStub.returns({lyric: lyric});
 
         sutChaining = sut.search({artist: artist, title : title}, thisStrategy);
@@ -74,7 +74,7 @@ $(function () {
         strictEqual(sut, sutChaining, 'Chaining is correct.');
     });
 
-    test('Lyric search via the web with success', 5, function () {
+    QUnit.test('Lyric search via the web with success', 5, function () {
         strategyStub.restore();
         strategyStub = sinon.stub(thisStrategy, 'execute', function(artist, title, success){
             success(lyric);
@@ -91,7 +91,7 @@ $(function () {
         strictEqual(sut, sutChaining, 'Chaining is correct.');
     });
 
-    test('Lyric search via the web with error', 4, function () {
+    QUnit.test('Lyric search via the web with error', 4, function () {
         var $errorMessage = $('<div>errorMessage</div>');
 
         strategyStub.restore();

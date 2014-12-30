@@ -63,7 +63,7 @@ module.exports = function (grunt) {
             }
         },
         qunit: {
-            files: [ 'tests/**/*.html' ]
+            all: [ 'tests/**/*.html' ]
         }
     });
 

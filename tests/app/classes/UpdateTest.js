@@ -14,7 +14,7 @@ $(function () {
     var $fixture;
     var $updateButton;
 
-    testStart(function () {
+    QUnit.testStart(function () {
         $fixture = $( '#qunit-fixture' );
         $updateButton = $('<div id="update"></div>');
         $fixture.append($updateButton);
@@ -27,11 +27,11 @@ $(function () {
         sutStub = sinon.stub(sut, 'getNewVersion');
     });
 
-    testDone(function () {
+    QUnit.testDone(function () {
         sutStub.restore();
     });
 
-    test('create Update throws exception on wrong arguments', 2, function () {
+    QUnit.test('create Update throws exception on wrong arguments', 2, function () {
         throws(function () {
             sut = new Update(undefined, thisBuild);
         }, 'Persist object undefined', 'Throws a exception on wrong parameter set.');
@@ -41,13 +41,13 @@ $(function () {
         }, 'Build object undefined', 'Throws a exception on wrong parameter set.');
     });
 
-    test('Update registerUpdateButtonEvent throws exception on wrong arguments', 1, function () {
+    QUnit.test('Update registerUpdateButtonEvent throws exception on wrong arguments', 1, function () {
         throws(function () {
             sut.registerUpdateButtonEvent(undefined);
         }, 'Update button object undefined', 'Throws a exception on wrong parameter set.');
     });
 
-    test('Update registerUpdateButtonEvent', 2, function () {
+    QUnit.test('Update registerUpdateButtonEvent', 2, function () {
         sutSpy = sinon.spy(sut, 'check');
 
         sutChaining = sut.registerUpdateButtonEvent($updateButton);
@@ -58,7 +58,7 @@ $(function () {
         strictEqual(sut, sutChaining, 'Chaining is correct.');
     });
 
-    test('Update with no new update', 2, function () {
+    QUnit.test('Update with no new update', 2, function () {
         var persistFindByStub = sinon.stub(thisPersist, 'findBy');
         persistFindByStub.returns(String(new Date().getTime()));
 
@@ -68,7 +68,7 @@ $(function () {
         strictEqual(sut, sutChaining, 'Chaining is correct.');
     });
 
-    test('Update check test with new update', 13, function () {
+    QUnit.test('Update check test with new update', 13, function () {
         var persistPersistStub = sinon.stub(thisPersist, 'persist');
         var persistFindByStub = sinon.stub(thisPersist, 'findBy');
         persistFindByStub.returns(undefined);

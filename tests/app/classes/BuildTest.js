@@ -3,17 +3,17 @@ $(function () {
 
     var sut;
 
-    testStart(function () {
+    QUnit.testStart(function () {
         sut = new Build();
     });
 
-    test('Build div test with undefined options', 2, function () {
+    QUnit.test('Build div test with undefined options', 2, function () {
 
         strictEqual(String(sut.div(undefined)[0]), String($('<div></div>')[0]), 'Should be a <div> element');
         strictEqual(String(sut.link(undefined)[0]), String($('<a></a>')[0]), 'Should be a <a> element');
     });
 
-    test('Build div test', 7, function () {
+    QUnit.test('Build div test', 7, function () {
 
         var $div = sut.div({
             attr: {
@@ -36,7 +36,7 @@ $(function () {
         strictEqual($div.css('background-color'), 'rgb(0, 0, 0)', 'Property is not correct.');
     });
 
-    test('Build link test', 7, function () {
+    QUnit.test('Build link test', 7, function () {
 
         var $link = sut.link({
             attr: {

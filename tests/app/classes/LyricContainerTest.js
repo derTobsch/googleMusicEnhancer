@@ -14,7 +14,7 @@ $(function () {
     var $header;
     var $body;
 
-    testStart(function () {
+    QUnit.testStart(function () {
         $fixture = $('#qunit-fixture');
         $fixture.append($('<div id="main"></div>'));
 
@@ -30,19 +30,19 @@ $(function () {
         $body = $main.find('#lyrics-panel #lyrics-body');
     });
 
-    test('Lyric container init throws exception when no parent defined', 1, function () {
+    QUnit.test('Lyric container init throws exception when no parent defined', 1, function () {
         throws(function () {
             new LyricContainer(undefined, build);
         }, 'Please define a selector', 'Throws a exception when parent is not defined.');
     });
 
-    test('Lyric container init throws exception when no build defined', 1, function () {
+    QUnit.test('Lyric container init throws exception when no build defined', 1, function () {
         throws(function () {
             new LyricContainer($main, undefined);
         }, 'Build object undefined', 'Throws a exception when build is not defined.');
     });
 
-    test('Lyric container ', 12, function () {
+    QUnit.test('Lyric container ', 12, function () {
         equal($panel.hasClass('lyrics-panel'), true, 'Panel has class lyrics-panel');
         equal($panel.hasClass('un-clicked'), true, 'Panel is un-clicked');
         equal($panel.attr('id'), 'lyrics-panel', 'Panel has id lyrics-panel');
@@ -60,7 +60,7 @@ $(function () {
         equal($body.text(), 'I can not hear a sound. Play something loud!', 'Header has text: I can not hear a sound. Play something loud!');
     });
 
-    test('Lyric container register toggler', 3, function () {
+    QUnit.test('Lyric container register toggler', 3, function () {
         sutChaining = sut.registerToggler();
 
         strictEqual(sut, sutChaining, 'Chaining is correct.');
@@ -72,7 +72,7 @@ $(function () {
         equal($panel.hasClass('clicked'), true, 'Panel has been clicked');
     });
 
-    test('Lyric container register event loading overlay', 2, function () {
+    QUnit.test('Lyric container register event loading overlay', 2, function () {
         sut.registerEvents();
 
         $panel.trigger('add-loading-overlay');
@@ -83,7 +83,7 @@ $(function () {
         equal($loadingOverlay.attr('data-type'), 'regular-loading-overlay', 'Loading-overlay has been added with data-type');
     });
 
-    test('Lyric container register event update and trigger with headline change', 2, function () {
+    QUnit.test('Lyric container register event update and trigger with headline change', 2, function () {
         sut.registerEvents();
 
         $panel.trigger('update', {artist: 'artist', title: 'title'});
@@ -92,7 +92,7 @@ $(function () {
         equal($body.html(), 'I can not hear a sound. Play something loud!', 'Default body text set');
     });
 
-    test('Lyric container no scrolling on headline change', 1, function () {
+    QUnit.test('Lyric container no scrolling on headline change', 1, function () {
         sut.registerEvents();
         $body.css({height: '10px', overflowY: 'scroll'}).scrollTop(5);
 
@@ -101,7 +101,7 @@ $(function () {
         equal($body.scrollTop(), '5', 'Container update without lyric that does not reset the scrolling');
     });
 
-    test('Lyric container register event update and trigger with lyric change', 3, function () {
+    QUnit.test('Lyric container register event update and trigger with lyric change', 3, function () {
         sut.registerEvents();
 
         $panel.trigger('update', {lyric: 'lyric'});
@@ -111,7 +111,7 @@ $(function () {
         equal($body.scrollTop(), '0', 'Container update reset the scrolling');
     });
 
-    test('Lyric container register event chaining', 1, function () {
+    QUnit.test('Lyric container register event chaining', 1, function () {
         sutChaining = sut.registerEvents();
         strictEqual(sut, sutChaining, 'Chaining is correct.');
     });

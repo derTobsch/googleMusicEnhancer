@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/derTobsch/googleMusicEnhancer.svg?branch=master)](https://travis-ci.org/derTobsch/googleMusicEnhancer) [![devDependency Status](https://david-dm.org/derTobsch/googleMusicEnhancer/dev-status.svg)](https://david-dm.org/derTobsch/googleMusicEnhancer#info=devDependencies)
+
 GoogleMusicEnhancer
 ===================
 
@@ -10,9 +12,6 @@ Download latest release at
 http://tobsch.org/?site=GoogleMusicEnhancer
 
 ![Google Music lyrics](http://tobsch.org/img/GoogleMusicEnhancer/927cf659a1ef.png)
-
-
-[![Build Status](https://travis-ci.org/derTobsch/googleMusicEnhancer.svg?branch=master)](https://travis-ci.org/derTobsch/googleMusicEnhancer)
 
 How to 'build' this project:
 ====================================================

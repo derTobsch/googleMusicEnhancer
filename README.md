@@ -23,7 +23,7 @@ cd googleMusicEnhancer
 npm install
 ```
 
-Run `grunt` to `jshint`, `qunit`,  `concat` and `string-replace` release.
+Run `grunt` to `eslint`, `qunit`,  `concat` and `string-replace` release.
 
 ```sh
 grunt
@@ -36,7 +36,7 @@ How to run the tests:
 ====================================================
 Follow instructions in `How to 'build' this project...`
 
-Run `grunt` to run `jshint` and `qunit`.
+Run `grunt` to run `eslint` and `qunit`.
 
 ```sh
 grunt test

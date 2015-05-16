@@ -29,7 +29,7 @@ $(window).load(function () {
     var build = new Build();
 
     new Update(persist, build)
-        .registerUpdateButtonEvent($('.music-banner-icon'))
+        .registerUpdateButtonEvent($('.menu-logo'))
         .check(false);
 
     new LyricContainer($('#main'), build)

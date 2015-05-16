@@ -79,8 +79,7 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('default', [
-        'eslint',
-        'qunit',
+        'test',
         'concat',
         'string-replace'
     ]);

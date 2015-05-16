@@ -1,5 +1,4 @@
 module.exports = function (grunt) {
-    'use strict';
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -56,22 +55,34 @@ module.exports = function (grunt) {
                 }
             }
         },
-        jshint: {
-            files: ['src/app/**/*.js', 'tests/app/**/*.js'],
+        eslint: {
             options: {
-                jshintrc: '.jshintrc'
-            }
+                configFile: 'eslint.json'
+            },
+            target: [
+                'src/*.js',
+                'tests/*.js',
+                'Gruntfile.js'
+            ]
         },
         qunit: {
             all: [ 'tests/**/*.html' ]
         }
     });
 
+    grunt.registerTask('test', [
+        'eslint',
+        'qunit'
+    ]);
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-string-replace');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-qunit');
 
-    grunt.registerTask('test', ['jshint', 'qunit']);
-    grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'string-replace']);
+    grunt.registerTask('default', [
+        'eslint',
+        'qunit',
+        'concat',
+        'string-replace'
+    ]);
 };

@@ -1,6 +1,8 @@
 module.exports = function (grunt) {
 
     require('time-grunt')(grunt);
+    require('load-grunt-tasks')(grunt);
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         config: {
@@ -75,10 +77,6 @@ module.exports = function (grunt) {
         'eslint',
         'qunit'
     ]);
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-string-replace');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-qunit');
 
     grunt.registerTask('default', [
         'eslint',

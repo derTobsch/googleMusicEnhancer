@@ -40,6 +40,7 @@ $(window).load(function () {
         .registerSongChangeListener('#playerSongInfo', '#player-song-title', '#player-artist');
 });
 
+
 function Build() {
     'use strict';
 
@@ -69,6 +70,7 @@ function Build() {
         return $element.clone();
     }
 }
+
 
 function Lyric($panel, persist) {
     'use strict';
@@ -141,6 +143,7 @@ function Lyric($panel, persist) {
     }
 }
 
+
 function LyricContainer($parent, build) {
     'use strict';
 
@@ -207,6 +210,7 @@ function LyricContainer($parent, build) {
     }
 }
 
+
 function LyricsWiki(build) {
     'use strict';
 
@@ -233,8 +237,8 @@ function LyricsWiki(build) {
                 songObject = JSON.parse(response.responseText);
 
                 if (songObject && songObject.lyrics !== 'Not found' && songObject.url) {
-                    get(songObject.url, function (response) {
-                        success(extractLyric(response));
+                    get(songObject.url, function (responseLyric) {
+                        success(extractLyric(responseLyric));
                     });
                 }
                 else {
@@ -246,7 +250,7 @@ function LyricsWiki(build) {
 
     function getErrorMessage(artist, title, url) {
         var googleSearchString = encodeURI(baseGoogleUrl + '?q=lyrics+"' + artist +
-            ' ' + title + '"#q=lyrics+"' + artist + ' ' + title +'"');
+            ' ' + title + '"#q=lyrics+"' + artist + ' ' + title + '"');
 
         return $('<div></div>')
             .append(
@@ -297,6 +301,7 @@ function LyricsWiki(build) {
     }
 }
 
+
 function Persist() {
     'use strict';
 
@@ -339,6 +344,7 @@ function Persist() {
         }
     };
 }
+
 
 function Update(persist, build) {
     'use strict';

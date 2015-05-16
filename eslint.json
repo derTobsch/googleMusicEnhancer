@@ -6,7 +6,12 @@
     },
     "rules": {
         "quotes": [2, "single", "avoid-escape"],
-        "no-use-before-define": [2, "nofunc"]
+        "no-use-before-define": [2, "nofunc"],
+        "new-cap": [0],
+        "no-unused-vars": [0],
+        "no-undef": [0],
+        "camelcase": [0]
+
     },
     "globals": {
         "GM_setValue": true,

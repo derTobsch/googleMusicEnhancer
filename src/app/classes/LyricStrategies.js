@@ -24,8 +24,8 @@ function LyricsWiki(build) {
                 songObject = JSON.parse(response.responseText);
 
                 if (songObject && songObject.lyrics !== 'Not found' && songObject.url) {
-                    get(songObject.url, function (response) {
-                        success(extractLyric(response));
+                    get(songObject.url, function (responseLyric) {
+                        success(extractLyric(responseLyric));
                     });
                 }
                 else {
@@ -37,7 +37,7 @@ function LyricsWiki(build) {
 
     function getErrorMessage(artist, title, url) {
         var googleSearchString = encodeURI(baseGoogleUrl + '?q=lyrics+"' + artist +
-            ' ' + title + '"#q=lyrics+"' + artist + ' ' + title +'"');
+            ' ' + title + '"#q=lyrics+"' + artist + ' ' + title + '"');
 
         return $('<div></div>')
             .append(

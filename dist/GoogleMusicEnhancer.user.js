@@ -37,7 +37,7 @@ $(window).load(function () {
         .registerEvents();
 
     new Lyric($('#lyrics-panel'), persist)
-        .registerSongChangeListener('#playerSongInfo', '#playerSongTitle', '#player-artist');
+        .registerSongChangeListener('#playerSongInfo', '#player-song-title', '#player-artist');
 });
 
 function Build() {

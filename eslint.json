@@ -4,9 +4,6 @@
         "browser": true,
         "jquery": true
     },
-    "ecmaFeatures": {
-        "modules": true
-    },
     "rules": {
         "quotes": [2, "single", "avoid-escape"],
         "no-use-before-define": [2, "nofunc"]

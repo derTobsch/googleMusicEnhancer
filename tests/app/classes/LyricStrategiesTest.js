@@ -68,7 +68,7 @@ $(function () {
         ok(requestSpy.calledOnce);
         ok(requestSpy.calledWith({
                 method: 'GET',
-                url: 'https://lyrics.wikia.com/api.php?fmt=realjson&artist=Artist%20To%20Encode&song=Title%20To%20Encode',
+                url: 'https://lyrics.wikia.com/api.php?action=lyrics&fmt=realjson&artist=Artist%20To%20Encode&song=Title%20To%20Encode',
                 onload: sinon.match.func
             })
         );

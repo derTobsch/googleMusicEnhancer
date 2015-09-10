@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            GoogleMusicEnhancer (GME)
-// @version         0.7.1
+// @version         0.7.2
 // @namespace       http://www.tobsch.org/
 // @author          Tobias Schneider
 // @homepage        http://www.tobsch.org/
@@ -215,7 +215,7 @@ function LyricsWiki(build) {
     'use strict';
 
     var name = 'LyricsWiki';
-    var baseLyricsWikiUrl = 'https://lyrics.wikia.com/api.php?fmt=realjson';
+    var baseLyricsWikiUrl = 'https://lyrics.wikia.com/api.php?action=lyrics&fmt=realjson';
 
     var baseGoogleUrl = 'http://www.google.com/';
 

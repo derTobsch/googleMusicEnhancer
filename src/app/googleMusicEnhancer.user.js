@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            GoogleMusicEnhancer (GME)
-// @version         0.7.1
+// @version         0.7.2
 // @namespace       http://www.tobsch.org/
 // @author          Tobias Schneider
 // @homepage        http://www.tobsch.org/
